@@ -38,7 +38,7 @@
 <script>
     var div = document.createElement("div");
     div.style.width = "100px";
-    div.style.height = document.getElementById("From").value;
+    div.style.height = String(document.getElementById("From").value) + "px";
     div.style.left = "0px";
     div.style.top = document.getElementById("ViewContainer").height - div.height;
     div.style.backgroundColor = "#9990000";
