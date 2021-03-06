@@ -40,7 +40,7 @@
     div.style.width = "100px";
     div.style.height = "100px";
     div.style.left = "0px";
-    div.style.bottom = "0px";
+    div.style.top = document.getElementById("ViewContainer").height - div.height;
     div.style.backgroundColor = "#000000";
     document.getElementById("ViewContainer").append(div);
 </script>
