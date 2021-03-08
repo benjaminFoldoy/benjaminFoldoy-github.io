@@ -96,11 +96,12 @@
             try
             {
                 var div = document.createElement("div");
-                var height = Math.floor(Math.random() * Math.floor(document.getElementById("ViewContainer").offsetHeight));
+                var rNum = Math.random();
+                var height = Math.floor(rNum * Math.floor(document.getElementById("ViewContainer").offsetHeight));
                 div.id = x;
                 div.style.width = (1/numberOfValues) * 100 + "%";
                 div.style.height = height + "px";
-                div.style.value = x;
+                div.style.value = rNum;
                 div.style.left = (((1/numberOfValues) * 100 * 0.999) * x) + "%";
                 div.style.position = "relative";
                 div.style.top = "100%";
@@ -115,13 +116,25 @@
         }
     }
 
+    function updateHeight()
+    {
+        for(var s = 0; s < 1000; s++)
+        {
+            try
+            {
+                document.getElementById(s).style.height =  Math.floor(document.getElementById(s).style.height.value * Math.floor(document.getElementById("ViewContainer").offsetHeight)) + "px";
+            }
+            catch{}
+        }
+    }
+
     var e = 0;
     var c = 0;
     var highestValue = 0;
     var highestValueID = 0;
-    var highestPosition = 0;
+    var highestHeightInPERCENT = 0;
     var interval;
-    var scanSpeed = 100;
+    var scanSpeed = 10;
 
     function SetIntervalC()
     {
@@ -129,7 +142,7 @@
         c = 0;
         highestValue = 0;
         highestValueID = 0;
-        highestPosition = 0;
+        highestHeightInPERCENT = 0;
         interval = setInterval(MyAlgorythm, scanSpeed);
     }
     
@@ -191,7 +204,7 @@
             
             highestValue = parseInt(div.style.height);
             highestValueID = c;
-            highestPosition = div.value;
+            highestHeightInPERCENT = div.value;
 
             document.getElementById("ViewContainer").append(redDiv);
         }
@@ -229,6 +242,9 @@
 
     function Logic()
     {
+
+        updateHeight();
+
         if(parseInt(window.innerWidth) > 700)
         {
             document.getElementById("NOVTEXT").innerHTML = "NUMBER OF VALUES";
