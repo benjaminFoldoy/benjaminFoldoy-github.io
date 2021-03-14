@@ -32,21 +32,21 @@
         <div id="SSRContainer" style="border: 3px solid transparent; z-index: 100; position: relative; float: left; width:fit-content; width: 94%; margin-left: 8%;">
             <h3 id="START" onclick="SetIntervalC();" style="width: 24%; font-size: 200%; cursor: pointer;">START</h3>
             <h3 id="STOP" onclick="Stop();" style="width: 24%; margin-left: 8%; font-size: 200%; cursor: pointer;">STOP</h3>
-            <h3 id="RESET" oninput="OnInputUpdate()" style="width: 24%; margin-left: 8%; font-size: 200%; cursor: pointer;">RESET</h3>
+            <h3 id="RESET" onclick="OnInputUpdate();" style="width: 24%; margin-left: 8%; font-size: 200%; cursor: pointer;">RESET</h3>
         </div>
-        <div id="COLORS" style="border: 3px solid transparent; z-index: 100; position: relative; overflow: hidden;margin-left: 8%; float: left;">
-            <div style="width: 48px; height: 48px; background-color: #007a99; border: 3px solid black; box-shadow: 3px 3px #003d4d; cursor: pointer;"></div>
-            <div style="width: 48px; height: 48px; background-color: #309900; border: 3px solid black; box-shadow: 3px 3px #003d4d; cursor: pointer;"></div>
-            <div style="width: 48px; height: 48px; background-color: #996300; border: 3px solid black; box-shadow: 3px 3px #003d4d; cursor: pointer;"></div>
-            <div style="width: 48px; height: 48px; background-color: #7a0099; border: 3px solid black; box-shadow: 3px 3px #003d4d; cursor: pointer;"></div>
+        <div id="COLORS" style="border: 3px solid transparent; z-index: 100; position: relative; margin-left: 8%; float: left;">
+            <div onclick="NewColor(159, 228, 255, 0, 61, 77)" style="width: 48px; height: 48px; background-color: #007a99; border: 3px solid black; box-shadow: 3px 3px #003d4d; cursor: pointer; margin-top: 6px;"> </div>
+            <div onclick="NewColor(200, 255, 160, 48, 153, 0)" style="width: 48px; height: 48px; background-color: #309900; border: 3px solid black; box-shadow: 3px 3px #003d4d; cursor: pointer; margin-top: 6px;"> </div>
+            <div onclick="NewColor(255, 220, 200, 153, 99, 0)" style="width: 48px; height: 48px; background-color: #996300; border: 3px solid black; box-shadow: 3px 3px #003d4d; cursor: pointer; margin-top: 6px;"> </div>
+            <div onclick="NewColor(200, 150, 255, 61, 0, 153)" style="width: 48px; height: 48px; background-color: #7a0099; border: 3px solid black; box-shadow: 3px 3px #003d4d; cursor: pointer; margin-top: 6px;"> </div>
         </div>
         <div id="NOVINPUTCONTAINER" style="border: 3px solid transparent; z-index: 100; position: relative; float: left; width: 40%;">
             <h2 id="NOVTEXT" style="font-family: Beans; height: 5%; margin-top: 0%; position: relative; text-align: center; width: 100%; font-size: 200%; cursor: default;">NUMBER OF VALUES</h2>
-            <input oninput="OnInputUpdate()" type="text" id="NOV" value="10" style="width: 50%; height: 70px; font-family: Beans; font-size: 200%; margin-left: 25%; top: 85%; text-align: center; position: relative; text-shadow: 3px 3px #cccccc; box-shadow: 3px 3px #003d4d;border:3px solid black; clear: right;">
+            <input oninput="OnInputUpdate()" type="text" id="NOV" value="10" style="width: 50%; height: 70px; font-family: Beans; font-size: 200%; margin-left: 25%; top: 85%; text-align: center; position: relative; text-shadow: 3px 3px #cccccc; box-shadow: 3px 3px #003d4d; border:3px solid black; clear: right;">
         </div>
         <div id="SPEEDINPUTCONTAINER" style="border: 3px solid transparent; z-index: 100; position: relative; float: left; width: 40%;">
             <h2 id="SPEEDTEXT" style="font-family: Beans; height: 5%; margin-top: 0%; position: relative; text-align: center; width: 100%; font-size: 200%; cursor: default;">SPEED</h2>
-            <input oninput="OnInputUpdate()" type="text" id="SPEED" value="4" style="width: 50%; height: 70px; font-family: Beans; font-size: 200%; margin-left: 25%; top: 85%; text-align: center; position: relative; text-shadow: 3px 3px #cccccc; box-shadow: 3px 3px #003d4d;border:3px solid black; clear: right;">
+            <input oninput="OnInputUpdate()" type="text" id="SPEED" value="5" style="width: 50%; height: 70px; font-family: Beans; font-size: 200%; margin-left: 25%; top: 85%; text-align: center; position: relative; text-shadow: 3px 3px #cccccc; box-shadow: 3px 3px #003d4d; border:3px solid black; clear: right;">
         </div>
     </div> 
 </body>
@@ -65,13 +65,36 @@
     var logicInterval = setInterval(Logic, 100);
     var numberOfValues = 0;
 
+    var minColor = [159, 228, 255];
+    var maxColor = [0, 61, 77];
+
     OnInputUpdate();
+
+    function alertFunc()
+    {
+        alert("HEY EVERYBODY!");
+    }
+
+    function NewColor(r1, g1, b1, r2, g2, b2)
+    {
+        minColor = [r1, g1, b1];
+        maxColor = [r2, g2, b2];
+
+        for (var x = 0; x < 1000; x++)
+        {
+            try
+            {
+                document.getElementById(x).style.backgroundColor = SetColor(parseInt(document.getElementById(x).style.height));
+            }
+            catch
+            {
+                x = 1000;
+            }
+        }
+    }
 
     function SetColor(x)
     {
-        var minColor = [159, 228, 255];
-        var maxColor = [0, 61, 77];
-
         var r = Math.floor( maxColor[0] + ((minColor[0] - maxColor[0]) / (document.getElementById("ViewContainer").offsetHeight)) * x);
         var g = Math.floor( maxColor[1] + ((minColor[1] - maxColor[1]) / (document.getElementById("ViewContainer").offsetHeight)) * x);
         var b = Math.floor( maxColor[2] + ((minColor[2] - maxColor[2]) / (document.getElementById("ViewContainer").offsetHeight)) * x);
@@ -90,7 +113,11 @@
 
     function OnInputUpdate()
     {
-
+        scanIsActive = true;
+        if (document.getElementById("NOV").value >  1000)
+        {
+            document.getElementById("NOV").value = 1000;
+        }
         e = 0;
         c = 0;
         highestValue = 0;
@@ -177,6 +204,12 @@
             }
             catch{}
         }
+    }
+
+    function Clear()
+    {
+        try{document.getElementById(99999).remove();}
+            catch{}
     }
 
     function SetIntervalC()
@@ -318,6 +351,12 @@
 
     function Logic()
     {
+
+        if(e == numberOfValues)
+        {
+        try{document.getElementById(99999).remove();}
+            catch{}
+        }
 
         updateHeight();
 
