@@ -22,24 +22,24 @@
 
         </div>
         
-        <div id="SSRContainer" style="border: 3px solid red; z-index: 100; position: relative; float: left; width:fit-content; width: 94%; margin-left: 8%;">
+        <div id="SSRContainer" style="border: 3px solid transparent; z-index: 100; position: relative; float: left; width:fit-content; width: 94%; margin-left: 8%;">
             <h3 id="START" onclick="SetIntervalC();" style="width: 24%; font-size: 200%; cursor: pointer;">START</h3>
-            <h3 id="STOP" style="width: 24%; margin-left: 8%; font-size: 200%; cursor: pointer;">STOP</h3>
+            <h3 id="STOP" onclick="Stop();" style="width: 24%; margin-left: 8%; font-size: 200%; cursor: pointer;">STOP</h3>
             <h3 id="RESET" oninput="OnInputUpdate()" style="width: 24%; margin-left: 8%; font-size: 200%; cursor: pointer;">RESET</h3>
         </div>
-        <div id="COLORS" style="border: 3px solid red; z-index: 100; position: relative; overflow: hidden;margin-left: 8%; float: left;">
+        <div id="COLORS" style="border: 3px solid transparent; z-index: 100; position: relative; overflow: hidden;margin-left: 8%; float: left;">
             <div style="width: 48px; height: 48px; background-color: #007a99; border: 3px solid black; box-shadow: 3px 3px #003d4d; cursor: pointer;"></div>
             <div style="width: 48px; height: 48px; background-color: #309900; border: 3px solid black; box-shadow: 3px 3px #003d4d; cursor: pointer;"></div>
             <div style="width: 48px; height: 48px; background-color: #996300; border: 3px solid black; box-shadow: 3px 3px #003d4d; cursor: pointer;"></div>
             <div style="width: 48px; height: 48px; background-color: #7a0099; border: 3px solid black; box-shadow: 3px 3px #003d4d; cursor: pointer;"></div>
         </div>
-        <div id="NOVINPUTCONTAINER" style="border: 3px solid red; z-index: 100; position: relative; float: left; width: 40%;">
+        <div id="NOVINPUTCONTAINER" style="border: 3px solid transparent; z-index: 100; position: relative; float: left; width: 40%;">
             <h2 id="NOVTEXT" style="font-family: Beans; height: 5%; margin-top: 0%; position: relative; text-align: center; width: 100%; font-size: 200%; cursor: default;">NUMBER OF VALUES</h2>
             <input oninput="OnInputUpdate()" type="text" id="NOV" value="10" style="width: 50%; height: 70px; font-family: Beans; font-size: 200%; margin-left: 25%; top: 85%; text-align: center; position: relative; text-shadow: 3px 3px #cccccc; box-shadow: 3px 3px #003d4d;border:3px solid black; clear: right;">
         </div>
-        <div id="SPEEDINPUTCONTAINER" style="border: 3px solid red; z-index: 100; position: relative; float: left; width: 40%;">
+        <div id="SPEEDINPUTCONTAINER" style="border: 3px solid transparent; z-index: 100; position: relative; float: left; width: 40%;">
             <h2 id="SPEEDTEXT" style="font-family: Beans; height: 5%; margin-top: 0%; position: relative; text-align: center; width: 100%; font-size: 200%; cursor: default;">SPEED</h2>
-            <input oninput="OnInputUpdate()" type="text" id="SPEED" value="10" style="width: 50%; height: 70px; font-family: Beans; font-size: 200%; margin-left: 25%; top: 85%; text-align: center; position: relative; text-shadow: 3px 3px #cccccc; box-shadow: 3px 3px #003d4d;border:3px solid black; clear: right;">
+            <input oninput="OnInputUpdate()" type="text" id="SPEED" value="4" style="width: 50%; height: 70px; font-family: Beans; font-size: 200%; margin-left: 25%; top: 85%; text-align: center; position: relative; text-shadow: 3px 3px #cccccc; box-shadow: 3px 3px #003d4d;border:3px solid black; clear: right;">
         </div>
     </div> 
 </body>
@@ -54,7 +54,7 @@
     var interval = [setInterval(MyAlgorythm, 1000)];
     clearInterval(interval[0]);
     interval[0] = null;
-    var scanSpeed = 1;
+    var scanSpeed = 10;
     var logicInterval = setInterval(Logic, 100);
     var numberOfValues = 0;
 
@@ -72,8 +72,24 @@
         return "rgb(" + r + "," + g + "," + b + ")"
     }
 
+    function Stop()
+    {
+        for (var p = 0; p <= numberOfIntervals; p++)
+        {
+            clearInterval(interval[p]);
+            interval[p] = null;
+        }
+    }
+
     function OnInputUpdate()
     {
+
+        e = 0;
+        c = 0;
+        highestValue = 0;
+        highestValueID = 0;
+        highestHeightInPERCENT = 0;
+        scanSpeed = document.getElementById("SPEED").value;
         for (var p = 0; p <= numberOfIntervals; p++)
         {
             clearInterval(interval[p]);
@@ -165,19 +181,36 @@
             interval[p] = null;
         }
 
-        e = 0;
-        c = 0;
-        highestValue = 0;
-        highestValueID = 0;
-        highestHeightInPERCENT = 0;
+        // e = 0;
+        // c = 0;
+        // highestValue = 0;
+        // highestValueID = 0;
+        // highestHeightInPERCENT = 0;
         for (var u = 0; u < scanSpeed; u++)
         {
-            interval.push(setInterval(MyAlgorythm, 100));
+            interval.push(setInterval(MyAlgorythm, 200));
+
             numberOfIntervals++;
+
+            sleep(parseInt(200/(scanSpeed)));
+
+            // setTimeout(function()
+            // {
+            //     interval.push(setInterval(MyAlgorythm, 1000));
+            //     numberOfIntervals++;
+            // }, scanSpeed/1000);
         }
         
     }
     
+    function sleep(milliseconds) {
+  const date = Date.now();
+  let currentDate = null;
+  do {
+    currentDate = Date.now();
+  } while (currentDate - date < milliseconds);
+}
+
     function MyAlgorythm()
     {
         //Checking the values, and creating a red colored div on top of the highest one...
