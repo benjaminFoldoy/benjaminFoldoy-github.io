@@ -16,29 +16,29 @@
 <body style="background-color: #006680;">
     <div style="width: 80%; height: fit-content; left: 10%; top: 10%; background-color: #9FE4FF; position: absolute; z-index: 1; box-shadow: 10px 10px #003d4d; border:3px solid black; padding-bottom: 30px;">
         
-        <h2 id="LOGO" style="width: 80%; left: 10%; text-align: center; position: relative;">NUMBER SORTING ALGORYTHM</h2>
+        <h2 id="LOGO" style="width: 80%; left: 10%; text-align: center; position: relative; cursor: default;">NUMBER SORTING ALGORYTHM</h2>
 
-        <div id="ViewContainer" style="width: 80%; height:40rem ;margin-top: 10%; margin-left: 8%; background-color: white; position: relative; padding: 2% 2% 2% 2%; box-shadow: 3px 3px #003d4d; border:3px solid black;">
+        <div id="ViewContainer" style="width: 80%; height:40rem; margin-top: 100px; margin-left: 8%; background-color: white; position: relative; padding: 2% 2% 2% 2%; box-shadow: 3px 3px #003d4d; border:3px solid black;">
 
         </div>
         
         <div id="SSRContainer" style="border: 3px solid red; z-index: 100; position: relative; float: left; width:fit-content; width: 94%; margin-left: 8%;">
-            <h3 id="START" onclick="SetIntervalC();" style="width: 24%; font-size: 200%;">START</h3>
-            <h3 id="STOP" style="width: 24%; margin-left: 8%; font-size: 200%;">STOP</h3>
-            <h3 id="RESET" oninput="OnInputUpdate()" style="width: 24%; margin-left: 8%; font-size: 200%;">RESET</h3>
+            <h3 id="START" onclick="SetIntervalC();" style="width: 24%; font-size: 200%; cursor: pointer;">START</h3>
+            <h3 id="STOP" style="width: 24%; margin-left: 8%; font-size: 200%; cursor: pointer;">STOP</h3>
+            <h3 id="RESET" oninput="OnInputUpdate()" style="width: 24%; margin-left: 8%; font-size: 200%; cursor: pointer;">RESET</h3>
         </div>
         <div id="COLORS" style="border: 3px solid red; z-index: 100; position: relative; overflow: hidden;margin-left: 8%; float: left;">
-            <div style="width: 48px; height: 48px; background-color: #007a99; border: 3px solid black; box-shadow: 3px 3px #003d4d;"></div>
-            <div style="width: 48px; height: 48px; background-color: #309900; border: 3px solid black; box-shadow: 3px 3px #003d4d;"></div>
-            <div style="width: 48px; height: 48px; background-color: #996300; border: 3px solid black; box-shadow: 3px 3px #003d4d;"></div>
-            <div style="width: 48px; height: 48px; background-color: #7a0099; border: 3px solid black; box-shadow: 3px 3px #003d4d;"></div>
+            <div style="width: 48px; height: 48px; background-color: #007a99; border: 3px solid black; box-shadow: 3px 3px #003d4d; cursor: pointer;"></div>
+            <div style="width: 48px; height: 48px; background-color: #309900; border: 3px solid black; box-shadow: 3px 3px #003d4d; cursor: pointer;"></div>
+            <div style="width: 48px; height: 48px; background-color: #996300; border: 3px solid black; box-shadow: 3px 3px #003d4d; cursor: pointer;"></div>
+            <div style="width: 48px; height: 48px; background-color: #7a0099; border: 3px solid black; box-shadow: 3px 3px #003d4d; cursor: pointer;"></div>
         </div>
         <div id="NOVINPUTCONTAINER" style="border: 3px solid red; z-index: 100; position: relative; float: left; width: 40%;">
-            <h2 id="NOVTEXT" style="font-family: Beans; height: 5%; margin-top: 0%; position: relative; text-align: center; width: 100%; font-size: 200%;">NUMBER OF VALUES</h2>
+            <h2 id="NOVTEXT" style="font-family: Beans; height: 5%; margin-top: 0%; position: relative; text-align: center; width: 100%; font-size: 200%; cursor: default;">NUMBER OF VALUES</h2>
             <input oninput="OnInputUpdate()" type="text" id="NOV" value="10" style="width: 50%; height: 70px; font-family: Beans; font-size: 200%; margin-left: 25%; top: 85%; text-align: center; position: relative; text-shadow: 3px 3px #cccccc; box-shadow: 3px 3px #003d4d;border:3px solid black; clear: right;">
         </div>
         <div id="SPEEDINPUTCONTAINER" style="border: 3px solid red; z-index: 100; position: relative; float: left; width: 40%;">
-            <h2 id="SPEEDTEXT" style="font-family: Beans; height: 5%; margin-top: 0%; position: relative; text-align: center; width: 100%; font-size: 200%;">SPEED</h2>
+            <h2 id="SPEEDTEXT" style="font-family: Beans; height: 5%; margin-top: 0%; position: relative; text-align: center; width: 100%; font-size: 200%; cursor: default;">SPEED</h2>
             <input oninput="OnInputUpdate()" type="text" id="SPEED" value="10" style="width: 50%; height: 70px; font-family: Beans; font-size: 200%; margin-left: 25%; top: 85%; text-align: center; position: relative; text-shadow: 3px 3px #cccccc; box-shadow: 3px 3px #003d4d;border:3px solid black; clear: right;">
         </div>
     </div> 
@@ -288,6 +288,15 @@
         else
         {
             document.getElementById("NOVTEXT").innerHTML = "NUMBER OF VALUES";
+        }
+
+        if(window.innerWidth > 840)
+        {
+            document.getElementById("ViewContainer").style.marginTop = "70px";
+        }
+        else
+        {
+            document.getElementById("ViewContainer").style.marginTop = "100px";
         }
     }
     
