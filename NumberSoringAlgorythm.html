@@ -35,10 +35,10 @@
             <h3 id="RESET" onclick="OnInputUpdate();" style="width: 24%; margin-left: 8%; font-size: 200%; cursor: pointer;">RESET</h3>
         </div>
         <div id="COLORS" style="border: 3px solid transparent; z-index: 100; position: relative; margin-left: 8%; float: left;">
-            <div onclick="NewColor(159, 228, 255, 0, 61, 77)" style="width: 48px; height: 48px; background-color: #007a99; border: 3px solid black; box-shadow: 3px 3px #003d4d; cursor: pointer; margin-top: 6px;"> </div>
-            <div onclick="NewColor(200, 255, 160, 48, 153, 0)" style="width: 48px; height: 48px; background-color: #309900; border: 3px solid black; box-shadow: 3px 3px #003d4d; cursor: pointer; margin-top: 6px;"> </div>
-            <div onclick="NewColor(255, 220, 200, 153, 99, 0)" style="width: 48px; height: 48px; background-color: #996300; border: 3px solid black; box-shadow: 3px 3px #003d4d; cursor: pointer; margin-top: 6px;"> </div>
-            <div onclick="NewColor(200, 150, 255, 61, 0, 153)" style="width: 48px; height: 48px; background-color: #7a0099; border: 3px solid black; box-shadow: 3px 3px #003d4d; cursor: pointer; margin-top: 6px;"> </div>
+            <div onclick="NewColor(159, 228, 255, 0, 61, 77); NameCurrentColor(0);" style="width: 48px; height: 48px; background-color: #007a99; border: 3px solid black; box-shadow: 3px 3px #003d4d; cursor: pointer; margin-top: 6px;"> </div>
+            <div onclick="NewColor(200, 255, 160, 48, 153, 0); NameCurrentColor(1);" style="width: 48px; height: 48px; background-color: #309900; border: 3px solid black; box-shadow: 3px 3px #003d4d; cursor: pointer; margin-top: 6px;"> </div>
+            <div onclick="NewColor(255, 220, 200, 153, 99, 0); NameCurrentColor(2);" style="width: 48px; height: 48px; background-color: #996300; border: 3px solid black; box-shadow: 3px 3px #003d4d; cursor: pointer; margin-top: 6px;"> </div>
+            <div onclick="NewColor(200, 150, 255, 61, 0, 153); NameCurrentColor(3);" style="width: 48px; height: 48px; background-color: #7a0099; border: 3px solid black; box-shadow: 3px 3px #003d4d; cursor: pointer; margin-top: 6px;"> </div>
         </div>
         <div id="NOVINPUTCONTAINER" style="border: 3px solid transparent; z-index: 100; position: relative; float: left; width: 40%;">
             <h2 id="NOVTEXT" style="font-family: Beans; height: 5%; margin-top: 0%; position: relative; text-align: center; width: 100%; font-size: 200%; cursor: default;">NUMBER OF VALUES</h2>
@@ -64,6 +64,7 @@
     var scanSpeed = 10;
     var logicInterval = setInterval(Logic, 100);
     var numberOfValues = 0;
+    var currentColor = "blue";
 
     var minColor = [159, 228, 255];
     var maxColor = [0, 61, 77];
@@ -73,6 +74,26 @@
     function alertFunc()
     {
         alert("HEY EVERYBODY!");
+    }
+
+    function NameCurrentColor(x)
+    {
+        if(x == 0)
+        {
+            currentColor = "blue";
+        }
+        else if(x == 1)
+        {
+            currentColor = "green";
+        }
+        else if(x == 2)
+        {
+            currentColor = "orange";
+        }
+        else if(x == 3)
+        {
+            currentColor = "purple";
+        }
     }
 
     function NewColor(r1, g1, b1, r2, g2, b2)
@@ -267,9 +288,30 @@
         redDiv.style.backgroundColor = "#ff0000";
         redDiv.id = 99999;
 
-        var whiteDiv = document.createElement("div");
-        whiteDiv.style.backgroundColor = "#00ffff";
-        whiteDiv.id = 99998;
+        if(currentColor == "blue")
+        {
+            var whiteDiv = document.createElement("div");
+            whiteDiv.style.backgroundColor = "#00ffff";
+            whiteDiv.id = 99998; 
+        }
+        else if(currentColor == "green")
+        {
+            var whiteDiv = document.createElement("div");
+            whiteDiv.style.backgroundColor = "#00ff00";
+            whiteDiv.id = 99998; 
+        }
+        else if(currentColor == "orange")
+        {
+            var whiteDiv = document.createElement("div");
+            whiteDiv.style.backgroundColor = "#ffff00";
+            whiteDiv.id = 99998; 
+        }
+        else if(currentColor == "purple")
+        {
+            var whiteDiv = document.createElement("div");
+            whiteDiv.style.backgroundColor = "#ff00ff";
+            whiteDiv.id = 99998; 
+        }
 
 
         //placing a white div on top of the current value
