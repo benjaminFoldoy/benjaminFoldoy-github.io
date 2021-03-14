@@ -23,9 +23,9 @@
         </div>
         
         <div id="SSRContainer" style="border: 3px solid red; z-index: 100; position: relative; float: left; width:fit-content; width: 94%; margin-left: 8%;">
-            <h3 id="START" onclick="SetIntervalC();" style="width: 24%;">START</h3>
-            <h3 id="STOP" style="width: 24%; margin-left: 8%;">STOP</h3>
-            <h3 id="RESET" oninput="OnInputUpdate()" style="width: 24%; margin-left: 8%;">RESET</h3>
+            <h3 id="START" onclick="SetIntervalC();" style="width: 24%; font-size: 200%;">START</h3>
+            <h3 id="STOP" style="width: 24%; margin-left: 8%; font-size: 200%;">STOP</h3>
+            <h3 id="RESET" oninput="OnInputUpdate()" style="width: 24%; margin-left: 8%; font-size: 200%;">RESET</h3>
         </div>
         <div id="COLORS" style="border: 3px solid red; z-index: 100; position: relative; overflow: hidden;margin-left: 8%; float: left;">
             <div style="width: 48px; height: 48px; background-color: #007a99; border: 3px solid black; box-shadow: 3px 3px #003d4d;"></div>
@@ -34,12 +34,12 @@
             <div style="width: 48px; height: 48px; background-color: #7a0099; border: 3px solid black; box-shadow: 3px 3px #003d4d;"></div>
         </div>
         <div id="NOVINPUTCONTAINER" style="border: 3px solid red; z-index: 100; position: relative; float: left; width: 40%;">
-            <h2 id="NOVTEXT" style="font-family: Beans; height: 5%; margin-top: 0%; position: relative; text-align: center; width: 100%;">NUMBER OF VALUES</h2>
-            <input oninput="OnInputUpdate()" type="text" id="NOV" value="10" style="width: 50%; height: 70px; font-family: Beans; font-size: 190%; margin-left: 25%; top: 85%; text-align: center; position: relative; text-shadow: 3px 3px #cccccc; box-shadow: 3px 3px #003d4d;border:3px solid black; clear: right;">
+            <h2 id="NOVTEXT" style="font-family: Beans; height: 5%; margin-top: 0%; position: relative; text-align: center; width: 100%; font-size: 200%;">NUMBER OF VALUES</h2>
+            <input oninput="OnInputUpdate()" type="text" id="NOV" value="10" style="width: 50%; height: 70px; font-family: Beans; font-size: 200%; margin-left: 25%; top: 85%; text-align: center; position: relative; text-shadow: 3px 3px #cccccc; box-shadow: 3px 3px #003d4d;border:3px solid black; clear: right;">
         </div>
         <div id="SPEEDINPUTCONTAINER" style="border: 3px solid red; z-index: 100; position: relative; float: left; width: 40%;">
-            <h2 id="SPEEDTEXT" style="font-family: Beans; height: 5%; margin-top: 0%; position: relative; text-align: center; width: 100%;">SPEED</h2>
-            <input oninput="OnInputUpdate()" type="text" id="SPEED" value="10" style="width: 50%; height: 70px; font-family: Beans; font-size: 190%; margin-left: 25%; top: 85%; text-align: center; position: relative; text-shadow: 3px 3px #cccccc; box-shadow: 3px 3px #003d4d;border:3px solid black; clear: right;">
+            <h2 id="SPEEDTEXT" style="font-family: Beans; height: 5%; margin-top: 0%; position: relative; text-align: center; width: 100%; font-size: 200%;">SPEED</h2>
+            <input oninput="OnInputUpdate()" type="text" id="SPEED" value="10" style="width: 50%; height: 70px; font-family: Beans; font-size: 200%; margin-left: 25%; top: 85%; text-align: center; position: relative; text-shadow: 3px 3px #cccccc; box-shadow: 3px 3px #003d4d;border:3px solid black; clear: right;">
         </div>
     </div> 
 </body>
@@ -281,7 +281,7 @@
 
         updateHeight();
 
-        if(window.innerWidth < 1150)
+        if(window.innerWidth < 1650)
         {
             document.getElementById("NOVTEXT").innerHTML = "NOV";
         }
