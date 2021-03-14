@@ -7,29 +7,44 @@
                 font-family: Beans;
                 src: url("https://benjaminfoldoy.github.io/Assets/pixel-perfect-beans.ttf");
             }
-            h1{font-family: Beans; size: 10%; color: #007a99; text-shadow: 3px 3px #005d6d;}
-            h2{font-family: Beans; size: 8%; color: #007a99; text-shadow: 3px 3px #005d6d; text-align: right;}
-            h3{font-family: Beans; size: 8%; color: #007a99; text-shadow: 3px 3px #cccccc; text-align: center; background-color: white;}
+            h1{font-family: Beans; size: 10%; color: #007a99; text-shadow: 3px 3px #005d6d; border: 3px solid black;}
+            h2{font-family: Beans; size: 8%; position: relative; color: #007a99; text-shadow: 3px 3px #005d6d; text-align: right; z-index: 10; float: left;}
+            h3{font-family: Beans; size: 8%; position: relative; color: #000000; text-shadow: 3px 3px #cccccc; text-align: center; background-color: white; box-shadow: 3px 3px #003d4d; z-index: 10; border: 3px solid black; float: left;}
             p{font-family: Beans; size: 1%; color: #007a99; text-shadow: 3px 3px;}
         </style>
     </head>
 <body style="background-color: #006680;">
-    <div style="width: 80%; height: 80%; left: 10%; top: 10%; background-color: #9FE4FF; position: absolute; z-index: 1; box-shadow: 10px 10px #003d4d; border:3px solid black;">
+    <div style="width: 80%; height: fit-content; left: 10%; top: 10%; background-color: #9FE4FF; position: absolute; z-index: 1; box-shadow: 10px 10px #003d4d; border:3px solid black; padding-bottom: 30px;">
         
-        <h1 id="LOGO" style="width: 80%; left: 10%; text-align: center; position: absolute;">NUMBER SORTING ALGORYTHM</h1>
+        <h2 id="LOGO" style="width: 80%; left: 10%; text-align: center; position: relative;">NUMBER SORTING ALGORYTHM</h2>
 
-        <div id="ViewContainer" style="width: 60%; height: 40%; top: 18%; left: 18%; background-color: white; position: absolute; padding: 2% 2% 2% 2%; box-shadow: 3px 3px #003d4d; border:3px solid black;">
+        <div id="ViewContainer" style="width: 80%; height:40rem ;margin-top: 10%; margin-left: 8%; background-color: white; position: relative; padding: 2% 2% 2% 2%; box-shadow: 3px 3px #003d4d; border:3px solid black;">
 
         </div>
-
-        <h3 id="START" onclick="SetIntervalC();" style="font-family: Beans; width: 16%; height: 5%; left: 18%; top: 66%; text-align: center; position: absolute; box-shadow: 3px 3px #003d4d;border:3px solid black;">START</h3>
-        <h3 id="STOP" style="font-family: Beans; width: 16%; height: 5%; left: 42%; top: 66%; text-align: center; position: absolute; box-shadow: 3px 3px #003d4d;border:3px solid black;">STOP</h3>
-        <h3 id="RESET" style="font-family: Beans; width: 16%; height: 5%; left: 66%; top: 66%; text-align: center; position: absolute; box-shadow: 3px 3px #003d4d;border:3px solid black;">RESET</h3>
-        <h2 id="NOVTEXT" style="font-family: Beans; width: 70%; height: 5%; left: 15%; top: 75%; position: absolute; text-align: center;">NUMBER OF VALUES</h2>
-        <input oninput="OnInputUpdate()" type="text" id="NOV" value="100" style="width: 30%; height: 10%; font-family: Beans; font-size: 190% ; left: 35%; top: 85%; text-align: center; position: absolute; text-shadow: 3px 3px #cccccc; box-shadow: 3px 3px #003d4d;border:3px solid black;">
-    </div>
+        
+        <div id="SSRContainer" style="border: 3px solid red; z-index: 100; position: relative; float: left; width:fit-content; width: 94%; margin-left: 8%;">
+            <h3 id="START" onclick="SetIntervalC();" style="width: 24%;">START</h3>
+            <h3 id="STOP" style="width: 24%; margin-left: 8%;">STOP</h3>
+            <h3 id="RESET" oninput="OnInputUpdate()" style="width: 24%; margin-left: 8%;">RESET</h3>
+        </div>
+        <div id="COLORS" style="border: 3px solid red; z-index: 100; position: relative; overflow: hidden;margin-left: 8%; float: left;">
+            <div style="width: 18px; height: 18px; background-color: #007a99; border: 3px solid black; box-shadow: 3px 3px #003d4d;"></div>
+            <div style="width: 18px; height: 18px; background-color: #309900; border: 3px solid black; box-shadow: 3px 3px #003d4d;"></div>
+            <div style="width: 18px; height: 18px; background-color: #996300; border: 3px solid black; box-shadow: 3px 3px #003d4d;"></div>
+            <div style="width: 18px; height: 18px; background-color: #7a0099; border: 3px solid black; box-shadow: 3px 3px #003d4d;"></div>
+        </div>
+        <div id="NOVINPUTCONTAINER" style="border: 3px solid red; z-index: 100; position: relative; float: left; width: 40%;">
+            <h2 id="NOVTEXT" style="font-family: Beans; height: 5%; margin-top: 0%; position: relative; text-align: center; width: 100%;">NUMBER OF VALUES</h2>
+            <input oninput="OnInputUpdate()" type="text" id="NOV" value="10" style="width: 50%; height: 70px; font-family: Beans; font-size: 190%; margin-left: 25%; top: 85%; text-align: center; position: relative; text-shadow: 3px 3px #cccccc; box-shadow: 3px 3px #003d4d;border:3px solid black; clear: right;">
+        </div>
+        <div id="SPEEDINPUTCONTAINER" style="border: 3px solid red; z-index: 100; position: relative; float: left; width: 40%;">
+            <h2 id="SPEEDTEXT" style="font-family: Beans; height: 5%; margin-top: 0%; position: relative; text-align: center; width: 100%;">SPEED</h2>
+            <input oninput="OnInputUpdate()" type="text" id="SPEED" value="10" style="width: 50%; height: 70px; font-family: Beans; font-size: 190%; margin-left: 25%; top: 85%; text-align: center; position: relative; text-shadow: 3px 3px #cccccc; box-shadow: 3px 3px #003d4d;border:3px solid black; clear: right;">
+        </div>
+    </div> 
 </body>
 <script>
+
     var e = 0;
     var c = 0;
     var highestValue = 0;
@@ -40,9 +55,7 @@
     clearInterval(interval[0]);
     interval[0] = null;
     var scanSpeed = 1;
-
     var logicInterval = setInterval(Logic, 100);
-
     var numberOfValues = 0;
 
     OnInputUpdate();
@@ -268,59 +281,16 @@
 
         updateHeight();
 
-        //TEXT
-
-        if(parseInt(window.innerWidth) > 700)
-        {
-            document.getElementById("NOVTEXT").innerHTML = "NUMBER OF VALUES";
-            document.getElementById("START").innerHTML = "START";
-            document.getElementById("STOP").innerHTML = "STOP";
-            document.getElementById("RESET").innerHTML = "RESET";
-            document.getElementById("LOGO").innerHTML = "NUMBER SORTING ALGORYTHM";
-        }
-        else
+        if(window.innerWidth < 1150)
         {
             document.getElementById("NOVTEXT").innerHTML = "NOV";
-            document.getElementById("START").innerHTML = "S";
-            document.getElementById("STOP").innerHTML = "S";
-            document.getElementById("RESET").innerHTML = "R";
-            document.getElementById("LOGO").innerHTML = "N.S.A";
-
-        }
-
-        document.getElementById("NOVTEXT").style.fontSize = window.innerHeight/40 + "px";
-        document.getElementById("NOV").style.fontSize = window.innerHeight/30 + "px";
-        document.getElementById("START").style.fontSize = window.innerHeight/40 + "px";
-        document.getElementById("STOP").style.fontSize = window.innerHeight/40 + "px";
-        document.getElementById("RESET").style.fontSize = window.innerHeight/40 + "px";
-        document.getElementById("NOVTEXT").style.textShadow = window.innerHeight/400 + "px " +  window.innerHeight/400 + "px " + "#005d6d";
-        document.getElementById("NOV").style.textShadow = window.innerHeight/400 + "px " +  window.innerHeight/400 + "px " + "#cccccc";
-        document.getElementById("START").style.textShadow = window.innerHeight/400 + "px " +  window.innerHeight/400 + "px " + "#cccccc";
-        document.getElementById("STOP").style.textShadow = window.innerHeight/400 + "px " +  window.innerHeight/400 + "px " + "#cccccc";
-        document.getElementById("RESET").style.textShadow = window.innerHeight/400 + "px " +  window.innerHeight/400 + "px " + "#cccccc";
-
-        if(window.innerHeight/20 < window.innerWidth/40)
-        {
-            document.getElementById("LOGO").style.fontSize = window.innerHeight/20 + "px";
         }
         else
         {
-            document.getElementById("LOGO").style.fontSize = window.innerWidth/40 + "px";
+            document.getElementById("NOVTEXT").innerHTML = "NUMBER OF VALUES";
         }
-
-        //DIVS
-
-        document.getElementById("ViewContainer").style.top = window.innerHeight * 0.15 + "px";
-        document.getElementById("ViewContainer").style.height = window.innerHeight * 0.33 + "px";
-        document.getElementById("START").style.top = window.innerHeight * 0.54 + "px";
-        document.getElementById("STOP").style.top = window.innerHeight * 0.54 + "px";
-        document.getElementById("RESET").style.top = window.innerHeight * 0.54 + "px";
-        document.getElementById("NOVTEXT").style.fontSize = window.innerHeight/40 + "px";
-        document.getElementById("NOVTEXT").style.top = window.innerHeight * 0.7 + "%";
-
     }
     
-
 </script>
 
 </html>
