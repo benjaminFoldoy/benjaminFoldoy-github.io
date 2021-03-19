@@ -22,11 +22,11 @@
             </style>
     </head>
     <body style="background-color: #006680;">
-        <div style="width: 80%; margin-left: 10%; margin-top: 5%; background-color: #9FE4FF; z-index: 1; box-shadow: 10px 10px #003d4d; border:3px solid black; padding-bottom: 30px; min-width: 900px; position: absolute;">
+        <div style="width: 80%; margin-left: 10%; margin-top: 5%; background-color: #9FE4FF; z-index: 1; box-shadow: 10px 10px #003d4d; border:3px solid black; padding-bottom: 30px;; position: absolute;">
             
             <h2 id="LOGO" style="width: 80%; left: 10%; text-align: center; cursor: default; position: relative;">THE SIEVE OF ERATOSTHENES</h2>
                 <div style="float:top; width: 84%; height: 40px; background-color: white; border: 3px solid black; text-align: center; margin-left: 8%; margin-top: 15%; box-shadow: 3px 3px #003d4d; font-size: 30px; cursor: pointer;" onclick="ChangeNumbers(-1)">(</div>
-                <div id="ViewContainer" style="width: 80%; margin-top: 10px; margin-left: 8%; background-color: white; padding: 2% 2% 2% 2%; box-shadow: 3px 3px #003d4d; border:3px solid black; min-width: 600px; max-width: 1700px; float: left;"></div>
+                <div id="ViewContainer" style="width: 80%; margin-top: 10px; margin-left: 8%; background-color: white; padding: 2% 2% 2% 2%; box-shadow: 3px 3px #003d4d; border:3px solid black; float: left;"></div>
                 <div style="float:top; width: 84%; height: 40px; background-color: white; border: 3px solid black; text-align: center; margin-left: 8%; float: left; margin-top: 15px; box-shadow: 3px 3px #003d4d;font-size: 30px; cursor: pointer;" onclick="ChangeNumbers(1)">)</div>
             <div id="SSRContainer" style="border: 3px solid transparent; z-index: 100; float: left; width:fit-content; width: 94%; margin-left: 8%; ">
                 <h3 id="START" onclick="SetIntervalC();" style="width: 24%; font-size: 200%; cursor: pointer;">START</h3>
@@ -42,7 +42,7 @@
 
         OnInputUpdate();
 
-        var FontUpdateInterval = setInterval(updateFontSize, 1000);
+        var FontUpdateInterval = setInterval(updateFontSize, 10);
         function OnInputUpdate()
         {
             for(var x = NOVMN; x <= NOVMX; x++)
@@ -51,9 +51,8 @@
                 div.innerHTML = x;
                 div.value = x;
                 div.id = n;
-                div.style.fontSize = 100 + "%";
-                div.style.width = 9 + "%";
-                div.style.minWidth = "20px"
+                div.style.fontSize = 10 + "px";
+                div.style.width = 80 + "px";
                 div.style.paddingTop = "2%";
                 div.style.paddingBottom = "2%";
                 div.style.display = "block";
@@ -86,7 +85,55 @@
 
         function updateFontSize()
         {
-            document.getElementById(x).style.fontSize = 1000 + "px";
+            for(var x = 0; x <= 100; x++)
+            {
+                var f = 10;
+                
+                if(parseInt(window.innerWidth) >= 1700)
+                {
+                    f = 24;
+                }
+                else if(parseInt(window.innerWidth) >= 1300)
+                {
+                    f = 17;
+                }
+                else if(parseInt(window.innerWidth) >= 800)
+                {
+                    f = 14;
+                }
+                try
+                {
+                    document.getElementById(x).style.fontSize = f + "px";
+                }
+                catch{}
+            }
+
+            for(var x = 0; x <= 100; x++)
+            {
+                var m = 0;
+                if(parseInt(window.innerWidth) < 900)
+                {
+                    document.getElementById(x).style.marginLeft = "0px";
+                }
+                else if(parseInt(window.innerWidth) < 1600)
+                {
+                    document.getElementById(x).style.marginLeft = "4px";
+                }
+                else if(parseInt(window.innerWidth) < 2400)
+                {
+                    document.getElementById(x).style.marginLeft = "7px";
+                }
+                else if(parseInt(window.innerWidth) < 3000)
+                {
+                    document.getElementById(x).style.marginLeft = "12px";
+                }
+                
+                try
+                {
+                    document.getElementById(x).style.width = parseInt(parseInt(window.innerWidth)/19) + "px";
+                }
+                catch{}
+            }
         }
         
     </script>
