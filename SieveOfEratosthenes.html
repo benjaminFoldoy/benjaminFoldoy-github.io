@@ -15,19 +15,21 @@
                     font-family: Beans;
                     src: url("https://benjaminfoldoy.github.io/Assets/pixel-perfect-beans.ttf");
                 }
-                h1{font-family: Beans; size: 10%; color: #007a99; text-shadow: 3px 3px #005d6d; border: 3px solid black; user-select: none;}
-                h2{font-family: Beans; size: 8%; color: #007a99; text-shadow: 3px 3px #005d6d; text-align: right; z-index: 10; float: left;}
+                h1{font-family: Beans; size: 18px; color: #007a99; text-shadow: 3px 3px #005d6d; border: 3px solid black; user-select: none; -webkit-text-stroke: ;}
+                h2{font-family: Beans; font-size: 40px; color: #007a99; text-shadow: 3px 3px #005d6d; text-align: right; z-index: 10; float: left;}
                 h3{font-family: Beans; size: 8%; color: #000000; text-shadow: 3px 3px #cccccc; text-align: center; background-color: white; box-shadow: 3px 3px #003d4d; z-index: 10; border: 3px solid black; float: left;}
                 p{font-family: Beans; size: 1%; color: #007a99; text-shadow: 3px 3px;}
             </style>
     </head>
     <body style="background-color: #006680;">
         <div style="width: 80%; margin-left: 10%; margin-top: 5%; background-color: #9FE4FF; z-index: 1; box-shadow: 10px 10px #003d4d; border:3px solid black; padding-bottom: 30px;; position: absolute;">
+            <div id="LOGOCONTAINER" style="position: relative; width: 100%;">
+                <h2 id="LOGO" style="width: 80%; left: 10%; text-align: center; cursor: default; position: relative;">THE SIEVE OF ERATOSTHENES</h2>
+            </div>
             
-            <h2 id="LOGO" style="width: 80%; left: 10%; text-align: center; cursor: default; position: relative;">THE SIEVE OF ERATOSTHENES</h2>
-                <div style="float:top; width: 84%; height: 40px; background-color: white; border: 3px solid black; text-align: center; margin-left: 8%; margin-top: 15%; box-shadow: 3px 3px #003d4d; font-size: 30px; cursor: pointer;" onclick="ChangeNumbers(-1)">(</div>
-                <div id="ViewContainer" style="width: 80%; margin-top: 10px; margin-left: 8%; background-color: white; padding: 2% 2% 2% 2%; box-shadow: 3px 3px #003d4d; border:3px solid black; float: left;"></div>
-                <div style="float:top; width: 84%; height: 40px; background-color: white; border: 3px solid black; text-align: center; margin-left: 8%; float: left; margin-top: 15px; box-shadow: 3px 3px #003d4d;font-size: 30px; cursor: pointer;" onclick="ChangeNumbers(1)">)</div>
+            <div style="float:top; width: 84%; float: left; height: 40px; background-color: white; border: 3px solid black; text-align: center; margin-left: 8%; margin-top: 2%; box-shadow: 3px 3px #003d4d; font-size: 30px; cursor: pointer;" onclick="ChangeNumbers(-1)">(</div>
+            <div id="ViewContainer" style="width: 80%; margin-top: 10px; margin-left: 8%; background-color: white; padding: 2% 2% 2% 2%; box-shadow: 3px 3px #003d4d; border:3px solid black; float: left;"></div>
+            <div style="float:top; width: 84%; height: 40px; background-color: white; border: 3px solid black; text-align: center; margin-left: 8%; float: left; margin-top: 15px; box-shadow: 3px 3px #003d4d;font-size: 30px; cursor: pointer;" onclick="ChangeNumbers(1)">)</div>
             <div id="SSRContainer" style="border: 3px solid transparent; z-index: 100; float: left; width:fit-content; width: 94%; margin-left: 8%; ">
                 <h3 id="START" onclick="SetIntervalC();" style="width: 24%; font-size: 200%; cursor: pointer;">START</h3>
                 <h3 id="STOP" onclick="Stop();" style="width: 24%; margin-left: 8%; font-size: 200%; cursor: pointer;">STOP</h3>
@@ -85,9 +87,7 @@
 
         function updateFontSize()
         {
-            for(var x = 0; x <= 100; x++)
-            {
-                var f = 10;
+            var f = 10;
                 
                 if(parseInt(window.innerWidth) >= 1700)
                 {
@@ -101,12 +101,16 @@
                 {
                     f = 14;
                 }
+            for(var x = 0; x <= 100; x++)
+            {
                 try
                 {
                     document.getElementById(x).style.fontSize = f + "px";
                 }
                 catch{}
             }
+
+            document.getElementById("LOGO").style.fontSize = f*2.7 + "px";
 
             for(var x = 0; x <= 100; x++)
             {
