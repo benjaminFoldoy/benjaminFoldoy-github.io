@@ -35,26 +35,51 @@
                 <h3 id="STOP" onclick="Stop();" style="width: 24%; margin-left: 8%; font-size: 200%; cursor: pointer;">STOP</h3>
                 <h3 id="RESET" onclick="OnInputUpdate();" style="width: 24%; margin-left: 8%; font-size: 200%; cursor: pointer;">RESET</h3>
             </div>
+            <div style="float:top; width: 84%; float: left;background-color: white; border: 3px solid black; text-align: center; margin-left: 8%; margin-top: 2%; box-shadow: 3px 3px #003d4d; font-size: 30px; cursor: pointer;">
+                <h2 id="USEDPRIMES" style="width: 80%; left: 10%; text-align: center; cursor: default; position: relative;"></h2>
+            </div>
         </div> 
     </body>
     <script>
         var NOVMX = 99;
         var NOVMN = 0;
         var n = 0;
+        var s = 1;
+
+        var n2 = 0;
+        var n3 = 0;
+        var n5 = 0;
+        var n7 = 0;
+        var n11 = 0;
+
+        var i2;
+        var i3;
+        var i5;
+        var i7;
+        var i11;
+
+        
+        var currentPrime;
+        var nessesaryPrimes;
+        var numberOfNessesaryPrimes = 0;
+        var colorationPassInterval;
+        var innerHTMLOUTPUT = "";
 
         OnInputUpdate();
-
         var FontUpdateInterval = setInterval(updateFontSize, 10);
+
+        ChangeNumbers();
         function OnInputUpdate()
         {
             for(var x = NOVMN; x <= NOVMX; x++)
             {
+                
                 var div = document.createElement("div");
                 div.innerHTML = x;
                 div.value = x;
                 div.id = n;
                 div.style.fontSize = 10 + "px";
-                div.style.width = 80 + "px";
+                div.style.width = parseInt(parseInt(window.innerWidth)/19) + "px";
                 div.style.paddingTop = "2%";
                 div.style.paddingBottom = "2%";
                 div.style.display = "block";
@@ -79,10 +104,79 @@
 
         }
 
+        function isPrime(num) 
+        {
+            for(var i = 2; i < num; i++)
+            {
+                if(num % i === 0) return false;
+            }    
+            return num > 1;
+        }
+
+        function ChangeAllNumbers()
+        {
+            n2 = 0 - (NOVMN % 2);
+            n3 = 0 - (NOVMN % 3);
+            n5 = 0 - (NOVMN % 5);
+            n7 = 0 - (NOVMN % 7);
+            n11 = 0 - (NOVMN % 11);
+            var m = NOVMN;
+            for(var x = 0; x <= 100; x++)
+            {
+                try
+                {
+                    document.getElementById(x).style.backgroundColor = "#eeffff";
+                    document.getElementById(x).value = m;
+                    document.getElementById(x).innerHTML = m++;
+                }
+                catch{}
+            }
+            //i2 = setInterval( Twos, 100);
+        }
+
+        function FindNessesaryPrimes()
+        {
+            nessesaryPrimes = [];
+
+            for (var i = 0; i < 10000; i++)
+            {
+                if (NOVMX**0.5 < i)
+                {
+                    i = 10000;
+                }
+                else if (isPrime(i) == true)
+                {
+                    nessesaryPrimes[numberOfNessesaryPrimes++] = i;
+                }
+            }
+
+            innerHTMLOUTPUT = "";
+            for(var i = 0; i < numberOfNessesaryPrimes; i++)
+            {
+                innerHTMLOUTPUT += String(nessesaryPrimes[i]);
+                if(numberOfNessesaryPrimes > i + 1)
+                {
+                    innerHTMLOUTPUT += ",";
+                }
+            }
+            document.getElementById("USEDPRIMES").innerHTML = innerHTMLOUTPUT;
+        }
+        
+        function Pass()
+        {
+
+        }
+
+
         function ChangeNumbers(PlusOrMinus)
         {
-            NOVMN += 100*PlusOrMinus;
-            NOVMX += 100*PlusOrMinus;
+            if((NOVMN >= 0 && PlusOrMinus == 1)|| (NOVMN != 0 && PlusOrMinus == -1))
+            {
+                NOVMN += 100*PlusOrMinus;
+                NOVMX += 100*PlusOrMinus;
+            }
+            ChangeAllNumbers();
+            FindNessesaryPrimes();
         }
 
         function updateFontSize()
@@ -105,7 +199,7 @@
             {
                 try
                 {
-                    document.getElementById(x).style.fontSize = f + "px";
+                    document.getElementById(x).style.fontSize = f*s + "px";
                 }
                 catch{}
             }
@@ -132,6 +226,23 @@
                     document.getElementById(x).style.marginLeft = "12px";
                 }
                 
+                if(NOVMN > 99999)
+                {
+                    s = 0.6;
+                }
+                else if(NOVMN > 9999)
+                {
+                    s = 0.72;
+                }
+                else if(NOVMN > 999)
+                {
+                    s = 0.9;
+                }
+                else
+                {
+                    s = 1;
+                }
+
                 try
                 {
                     document.getElementById(x).style.width = parseInt(parseInt(window.innerWidth)/19) + "px";
@@ -140,5 +251,114 @@
             }
         }
         
+        
+
+        function Twos()
+        {
+            try
+            {
+                document.getElementById(n2).style.backgroundColor = "#ffbbbb";
+            }
+            catch{}
+            
+            if(n2 <= 100)
+            {
+                n2 += 2;
+            }
+            else 
+            {
+                clearInterval(i2);
+                i3 = setInterval(Threes, 100);
+            }
+        }
+        function Threes()
+        {
+            try
+            {
+                document.getElementById(n3).style.backgroundColor = "#bbffbb";
+            }
+            catch{}
+            
+            if(n3 <= 100)
+            {
+                n3 += 3;
+            }
+            else 
+            {
+                clearInterval(i3);
+                i5 = setInterval(Fives, 100);
+            }
+        }
+        function Fives()
+        {
+            try
+            {
+                document.getElementById(n5).style.backgroundColor = "#bbbbff";
+            }
+            catch{}
+            
+            if(n5 <= 100)
+            {
+                n5 += 5;
+            }
+            else 
+            {
+                clearInterval(i5);
+                i7 = setInterval(Sevens, 100);
+            }
+        }
+        function Sevens()
+        {
+            try
+            {
+                document.getElementById(n7).style.backgroundColor = "#ffbbff";
+            }
+            catch{}
+            
+            if(n7 <= 100)
+            {
+                n7 += 7;
+            }
+            else 
+            {
+                clearInterval(i7);
+                i11 = setInterval(Elevens, 100);
+            }
+        }
+        function Elevens()
+        {
+            try
+            {
+                document.getElementById(n11).style.backgroundColor = "#bbffff";
+            }
+            catch{}
+            
+            if(n11 <= 100)
+            {
+                n11 += 11;
+            }
+            else 
+            {
+                clearInterval(i11);
+            }
+        }
+        function Thirteens()
+        {
+            try
+            {
+                document.getElementById(n13).style.backgroundColor = "#bbffff";
+            }
+            catch{}
+            
+            if(n13 <= 100)
+            {
+                n13 += 13;
+            }
+            else 
+            {
+                clearInterval(i13);
+            }
+        }
+
     </script>
 </html>
