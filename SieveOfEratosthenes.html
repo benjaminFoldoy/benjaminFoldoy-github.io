@@ -35,9 +35,7 @@
                 <h3 id="STOP" onclick="Stop();" style="width: 24%; margin-left: 8%; font-size: 200%; cursor: pointer;">STOP</h3>
                 <h3 id="RESET" onclick="OnInputUpdate();" style="width: 24%; margin-left: 8%; font-size: 200%; cursor: pointer;">RESET</h3>
             </div>
-            <div style="float:top; width: 84%; float: left;background-color: white; border: 3px solid black; text-align: center; margin-left: 8%; margin-top: 2%; box-shadow: 3px 3px #003d4d; font-size: 30px; cursor: pointer;">
-                <h2 id="USEDPRIMES" style="width: 80%; left: 10%; text-align: center; cursor: default; position: relative;"></h2>
-            </div>
+            <h3 id="USEDPRIMES" style="width: 84%; left: 8%; font-size: 29px; line-height: 60px; text-align: center; cursor: default; position: relative; padding-top: 14px; padding-bottom: 14px; color:#007a99; word-break:normal;"></h3>
         </div> 
     </body>
     <script>
@@ -46,24 +44,51 @@
         var n = 0;
         var s = 1;
 
-        var n2 = 0;
-        var n3 = 0;
-        var n5 = 0;
-        var n7 = 0;
-        var n11 = 0;
-
-        var i2;
-        var i3;
-        var i5;
-        var i7;
-        var i11;
-
+        var color = "";
+        newColor();
         
-        var currentPrime;
+        var currentPrime = 1;
         var nessesaryPrimes;
         var numberOfNessesaryPrimes = 0;
         var colorationPassInterval;
         var innerHTMLOUTPUT = "";
+
+        var c = 0;
+        var f1 = 2;
+        var f = 0;
+
+        var interval;
+
+        function SetIntervalC()
+        {
+            try
+            {
+                clearInterval(interval);
+                    interval = null;
+            }
+            catch{}
+            
+            c = 1;
+            f1 = 2;
+            f = 0;
+            currentPrime = 1;
+
+            interval = setInterval(Pass, 200);
+        }
+
+        function Blink()
+        {
+            for(var i = 0; i < 100; i++)
+            {
+                if(document.getElementById(i).value == "p")
+                {
+                    //alert("ddddd");
+                }
+                else{
+                    //alert(2)
+                }
+            }
+        }
 
         OnInputUpdate();
         var FontUpdateInterval = setInterval(updateFontSize, 10);
@@ -76,7 +101,7 @@
                 
                 var div = document.createElement("div");
                 div.innerHTML = x;
-                div.value = x;
+                div.value = "p";
                 div.id = n;
                 div.style.fontSize = 10 + "px";
                 div.style.width = parseInt(parseInt(window.innerWidth)/19) + "px";
@@ -115,11 +140,17 @@
 
         function ChangeAllNumbers()
         {
-            n2 = 0 - (NOVMN % 2);
-            n3 = 0 - (NOVMN % 3);
-            n5 = 0 - (NOVMN % 5);
-            n7 = 0 - (NOVMN % 7);
-            n11 = 0 - (NOVMN % 11);
+            try
+            {
+                clearInterval(interval);
+                    interval = null;
+            }
+            catch{}
+            
+            c = 1;
+            f1 = 2;
+            f = 0;
+            currentPrime = 1;
             var m = NOVMN;
             for(var x = 0; x <= 100; x++)
             {
@@ -131,12 +162,12 @@
                 }
                 catch{}
             }
-            //i2 = setInterval( Twos, 100);
         }
 
         function FindNessesaryPrimes()
         {
             nessesaryPrimes = [];
+            numberOfNessesaryPrimes = 0;
 
             for (var i = 0; i < 10000; i++)
             {
@@ -156,17 +187,58 @@
                 innerHTMLOUTPUT += String(nessesaryPrimes[i]);
                 if(numberOfNessesaryPrimes > i + 1)
                 {
-                    innerHTMLOUTPUT += ",";
+                    innerHTMLOUTPUT += ", ";
                 }
             }
             document.getElementById("USEDPRIMES").innerHTML = innerHTMLOUTPUT;
         }
         
-        function Pass()
+        function newColor()
         {
+            var R = (70 + Math.round(Math.random() * 85)).toString(16);
+            var G = (70 + Math.round(Math.random() * 85)).toString(16);
+            var B = (70 + Math.round(Math.random() * 85)).toString(16);
 
+            color = "#" + R + G + B;
         }
 
+        function Pass()
+        {
+            Blink();
+            try
+            {
+                var k = document.getElementById(f).innerHTML;
+                if(k != 2 && k != 3 && k != 5 && k != 7)
+                {
+                    document.getElementById(f).style.backgroundColor = color;
+                }
+            }
+            catch
+            {
+                //alert(f);
+            }
+
+            if(f <= 100)
+            {
+                f += f1;
+            }
+            else
+            {
+                f1 = nessesaryPrimes[currentPrime++];
+                f = 0 - (NOVMN % f1);
+                newColor();
+                
+                if(f1 == undefined)
+                {
+                    clearInterval(interval);
+                    interval = null;
+                    c = 1;
+                    f1 = 2;
+                    f = 0;
+                    currentPrime = 1;
+                } 
+            }
+        }
 
         function ChangeNumbers(PlusOrMinus)
         {
@@ -250,115 +322,5 @@
                 catch{}
             }
         }
-        
-        
-
-        function Twos()
-        {
-            try
-            {
-                document.getElementById(n2).style.backgroundColor = "#ffbbbb";
-            }
-            catch{}
-            
-            if(n2 <= 100)
-            {
-                n2 += 2;
-            }
-            else 
-            {
-                clearInterval(i2);
-                i3 = setInterval(Threes, 100);
-            }
-        }
-        function Threes()
-        {
-            try
-            {
-                document.getElementById(n3).style.backgroundColor = "#bbffbb";
-            }
-            catch{}
-            
-            if(n3 <= 100)
-            {
-                n3 += 3;
-            }
-            else 
-            {
-                clearInterval(i3);
-                i5 = setInterval(Fives, 100);
-            }
-        }
-        function Fives()
-        {
-            try
-            {
-                document.getElementById(n5).style.backgroundColor = "#bbbbff";
-            }
-            catch{}
-            
-            if(n5 <= 100)
-            {
-                n5 += 5;
-            }
-            else 
-            {
-                clearInterval(i5);
-                i7 = setInterval(Sevens, 100);
-            }
-        }
-        function Sevens()
-        {
-            try
-            {
-                document.getElementById(n7).style.backgroundColor = "#ffbbff";
-            }
-            catch{}
-            
-            if(n7 <= 100)
-            {
-                n7 += 7;
-            }
-            else 
-            {
-                clearInterval(i7);
-                i11 = setInterval(Elevens, 100);
-            }
-        }
-        function Elevens()
-        {
-            try
-            {
-                document.getElementById(n11).style.backgroundColor = "#bbffff";
-            }
-            catch{}
-            
-            if(n11 <= 100)
-            {
-                n11 += 11;
-            }
-            else 
-            {
-                clearInterval(i11);
-            }
-        }
-        function Thirteens()
-        {
-            try
-            {
-                document.getElementById(n13).style.backgroundColor = "#bbffff";
-            }
-            catch{}
-            
-            if(n13 <= 100)
-            {
-                n13 += 13;
-            }
-            else 
-            {
-                clearInterval(i13);
-            }
-        }
-
     </script>
 </html>
