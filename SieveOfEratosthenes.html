@@ -44,9 +44,13 @@
         var n = 0;
         var s = 1;
 
+        var scanColor = "rgb(140, 14, 220)";
+        var colorIsSet = "rgb(44, 140, 180)";
+
         var color = "";
         newColor();
         
+        var currentColorDim = 0;
         var currentPrime = 1;
         var nessesaryPrimes;
         var numberOfNessesaryPrimes = 0;
@@ -195,11 +199,7 @@
         
         function newColor()
         {
-            var R = (70 + Math.round(Math.random() * 85)).toString(16);
-            var G = (70 + Math.round(Math.random() * 85)).toString(16);
-            var B = (70 + Math.round(Math.random() * 85)).toString(16);
-
-            color = "#" + R + G + B;
+            color = "#" + parseInt(44 - 44*currentColorDim) + parseInt(140 - 140*currentColorDim) + parseInt(180 - 180*currentColorDim);
         }
 
         function Pass()
@@ -208,15 +208,13 @@
             try
             {
                 var k = document.getElementById(f).innerHTML;
+                
                 if(k != 2 && k != 3 && k != 5 && k != 7)
                 {
-                    document.getElementById(f).style.backgroundColor = color;
+                    document.getElementById(f).style.backgroundColor = scanColor;
                 }
             }
-            catch
-            {
-                //alert(f);
-            }
+            catch{}
 
             if(f <= 100)
             {
@@ -224,6 +222,17 @@
             }
             else
             {
+                for(var i = 0; i < 100; i++)
+                {
+                    try
+                    {
+                        if(document.getElementById(i).style.backgroundColor == scanColor)
+                        {
+                            document.getElementById(i).style.backgroundColor = colorIsSet;
+                        }
+                    }
+                    catch{}
+                }
                 f1 = nessesaryPrimes[currentPrime++];
                 f = 0 - (NOVMN % f1);
                 newColor();
