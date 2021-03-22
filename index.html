@@ -10,10 +10,52 @@
             }
             h1{font-family: Beans; size: 10%; color: #003D4D; text-shadow: 100px, 100px;}
             h2{font-family: Beans; size: 8%; color: #007a99; text-shadow: 100px, 100px;}
+
+            ul 
+                {
+                    list-style-type: none;
+                    margin: 0;
+                    padding: 0;
+                    overflow: hidden;
+                    background-color: #003d4d;
+                }
+
+                li 
+                {
+                    float: left;
+                }
+
+                li a 
+                {
+                    display: block;
+                    color: white;
+                    font-family: Beans;
+                    text-align: center;
+                    font-size: 200%;
+                    padding: 14px 16px;
+                    text-decoration: none;
+                    cursor: pointer;
+                }
+
+                li a:hover:not(.active) 
+                {
+                    background-color: #111;
+                }
+
+                .active 
+                {
+                    background-color: #000000;
+                }
         </style>
         <script data-ad-client="ca-pub-1170155400261139" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     </head>
 <body style="background-color: #006680;">
+    <ul style="margin-left: -10px; margin-top: -15px;">
+        <li><a class="active" onclick="OpenMain()">Benjamin Foldøy Grimstad</a></li>
+        <li><a onclick="">Lame Games</a></li>
+        <li><a onclick="">Contact</a></li>
+        <li><a>About</a></li>
+      </ul>
     <div style="width: 80%; margin-left: 10%; text-align: center; margin-top: 5%; background-color: #9FE4FF; position: absolute; z-index: 1; box-shadow: 100px, 100px; padding-bottom: 100px;">
         <h1 style="width: 100%;  position: relative; margin-top: 100px;">Benjamin Folødøy Grimstad</h1>
         <h2 style="margin-left: 20%; float: left; position: relative; margin-top: 100px; cursor: pointer; width: 60%">LAME GAMES!</h2>
