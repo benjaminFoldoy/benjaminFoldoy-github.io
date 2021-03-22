@@ -32,10 +32,11 @@
             <div style="float:top; width: 84%; height: 40px; background-color: white; border: 3px solid black; text-align: center; margin-left: 8%; float: left; margin-top: 15px; box-shadow: 3px 3px #003d4d;font-size: 30px; cursor: pointer;" onclick="ChangeNumbers(1)">)</div>
             <div id="SSRContainer" style="border: 3px solid transparent; z-index: 100; float: left; width:fit-content; width: 94%; margin-left: 8%; ">
                 <h3 id="START" onclick="SetIntervalC();" style="width: 24%; font-size: 200%; cursor: pointer;">START</h3>
-                <h3 id="STOP" onclick="Stop();" style="width: 24%; margin-left: 8%; font-size: 200%; cursor: pointer;">STOP</h3>
-                <h3 id="RESET" onclick="OnInputUpdate();" style="width: 24%; margin-left: 8%; font-size: 200%; cursor: pointer;">RESET</h3>
+                <h3 id="STOP" onclick="StopIntervalC();" style="width: 24%; margin-left: 8%; font-size: 200%; cursor: pointer;">STOP</h3>
+                <h3 id="RESET" onclick="ChangeNumbers(0);" style="width: 24%; margin-left: 8%; font-size: 200%; cursor: pointer;">RESET</h3>
             </div>
-            <h3 id="USEDPRIMES" style="width: 84%; left: 8%; font-size: 29px; line-height: 60px; text-align: center; cursor: default; position: relative; padding-top: 14px; padding-bottom: 14px; color:#007a99; word-break:normal;"></h3>
+            <div id="AP"></div>
+            <h3 id="USEDPRIMES" style="width: 74%; left: 8%; font-size: 29px; line-height: 60px; text-align: center; cursor: default; position: relative; padding-left: 5%; padding-right: 5%; padding-top: 14px; padding-bottom: 14px; color:#007a99; word-break:normal;"></h3>
         </div> 
     </body>
     <script>
@@ -44,8 +45,8 @@
         var n = 0;
         var s = 1;
 
-        var scanColor = "rgb(140, 14, 220)";
-        var colorIsSet = "rgb(44, 140, 180)";
+        var scanColor = "rgb(80, 230, 20)";
+        var colorIsSet = "rgb(0, 190, 200)";
 
         var color = "";
         newColor();
@@ -56,6 +57,9 @@
         var numberOfNessesaryPrimes = 0;
         var colorationPassInterval;
         var innerHTMLOUTPUT = "";
+        
+        var blinkingCountdown = 0;
+        var blinkingIdsArray = [];
 
         var c = 0;
         var f1 = 2;
@@ -72,12 +76,19 @@
             }
             catch{}
             
-            c = 1;
-            f1 = 2;
-            f = 0;
-            currentPrime = 1;
+            
 
             interval = setInterval(Pass, 200);
+        }
+
+        function StopIntervalC()
+        {
+            try
+            {
+                clearInterval(interval);
+                    interval = null;
+            }
+            catch{}
         }
 
         function Blink()
@@ -100,6 +111,12 @@
         ChangeNumbers();
         function OnInputUpdate()
         {
+
+            c = 1;
+            f1 = 2;
+            f = 0;
+            currentPrime = 1;
+
             for(var x = NOVMN; x <= NOVMX; x++)
             {
                 
@@ -184,17 +201,44 @@
                     nessesaryPrimes[numberOfNessesaryPrimes++] = i;
                 }
             }
+            for(var i = 0; i < 100000; i++)
+                {
+                    try
+                    {
+                        document.getElementById("p" + i).remove();
+                    }
+                    catch{i = 1000000}
+                    try
+                    {
+                        document.getElementById("c" + i).remove();
+                    }
+                    catch{i = 1000000}
+                }
 
-            innerHTMLOUTPUT = "";
             for(var i = 0; i < numberOfNessesaryPrimes; i++)
             {
-                innerHTMLOUTPUT += String(nessesaryPrimes[i]);
-                if(numberOfNessesaryPrimes > i + 1)
+                var OUTPUT = "";
+
+                if(numberOfNessesaryPrimes > i)
                 {
-                    innerHTMLOUTPUT += ", ";
+                    var h2 = document.createElement("h2");
+                    h2.innerHTML = String(nessesaryPrimes[i]);
+                    h2.style.color = "#000000"
+                    h2.style.textShadow = "3px 3px #999999";
+                    h2.id = "p" + i;
+                    document.getElementById("USEDPRIMES").appendChild(h2);
+
+                    if(numberOfNessesaryPrimes > i + 1)
+                    {
+                        var h2Comma = document.createElement("h2");
+                        h2Comma.innerHTML = ", ";
+                        h2Comma.style.color = "#000000"
+                        h2Comma.style.textShadow = "3px 3px #999999";
+                        h2Comma.id = "c" + i;
+                        document.getElementById("USEDPRIMES").appendChild(h2Comma);
+                    }
                 }
             }
-            document.getElementById("USEDPRIMES").innerHTML = innerHTMLOUTPUT;
         }
         
         function newColor()
@@ -204,48 +248,100 @@
 
         function Pass()
         {
-            Blink();
-            try
-            {
-                var k = document.getElementById(f).innerHTML;
-                
-                if(k != 2 && k != 3 && k != 5 && k != 7)
-                {
-                    document.getElementById(f).style.backgroundColor = scanColor;
-                }
-            }
-            catch{}
 
-            if(f <= 100)
+            if(blinkingCountdown == 0)
             {
-                f += f1;
+                document.getElementById("p" + (currentPrime - 1)).style.color = scanColor;
+                
+                try
+                {
+                    var k = document.getElementById(f).innerHTML;
+                    
+                    if(k != 2 && k != 3 && k != 5 && k != 7)
+                    {
+                        document.getElementById(f).style.backgroundColor = scanColor;
+                    }
+                }
+                catch{}
+
+                if(f <= 100)
+                {
+                    f += f1;
+                }
+                else
+                {
+                    blinkingIdsArray = [];
+                    for(var i = 0; i < 100; i++)
+                    {
+                        try
+                        {
+                            if(document.getElementById(i).style.backgroundColor == scanColor)
+                            {
+                                blinkingIdsArray.push(i);
+                                document.getElementById(i).style.backgroundColor = colorIsSet;
+                            }
+                        }
+                        catch{}
+                    }
+
+                    blinkingCountdown = 10;
+                    f1 = nessesaryPrimes[currentPrime];
+                    f = 0 - (NOVMN % f1);
+                    newColor();
+                    
+                    if(f1 == undefined && blinkingCountdown == 0)
+                    {
+                        clearInterval(interval);
+                        interval = null;
+                        c = 1;
+                        f1 = 2;
+                        f = 0;
+                        currentPrime = 1;
+                    } 
+                }
             }
             else
             {
-                for(var i = 0; i < 100; i++)
+                
+                for(var i = 0; i < 10000; i++)
                 {
                     try
                     {
-                        if(document.getElementById(i).style.backgroundColor == scanColor)
+                        if(document.getElementById(blinkingIdsArray[i]).style.backgroundColor == scanColor && blinkingCountdown > 4)
                         {
-                            document.getElementById(i).style.backgroundColor = colorIsSet;
+                            document.getElementById(blinkingIdsArray[i]).style.backgroundColor = colorIsSet;
+                        }
+                        else if(document.getElementById(blinkingIdsArray[i]).style.backgroundColor == colorIsSet && blinkingCountdown > 4)
+                        {
+                            document.getElementById(blinkingIdsArray[i]).style.backgroundColor = scanColor;
                         }
                     }
-                    catch{}
+                    catch
+                    {
+                        i = 10000;
+                    }
                 }
-                f1 = nessesaryPrimes[currentPrime++];
-                f = 0 - (NOVMN % f1);
-                newColor();
-                
-                if(f1 == undefined)
+
+                if(document.getElementById("p" + (currentPrime - 1)).style.color == scanColor && blinkingCountdown > 3 && blinkingCountdown != 10)
                 {
-                    clearInterval(interval);
-                    interval = null;
-                    c = 1;
-                    f1 = 2;
-                    f = 0;
-                    currentPrime = 1;
-                } 
+                    document.getElementById("p" + (currentPrime - 1)).style.color = colorIsSet;
+                }
+                else if(document.getElementById("p" + (currentPrime - 1)).style.color == colorIsSet && blinkingCountdown > 3)
+                {
+                    document.getElementById("p" + (currentPrime - 1)).style.color = scanColor;
+                }
+                else
+                {
+                    document.getElementById("p" + (currentPrime - 1)).style.color = scanColor;
+                }
+
+                if(blinkingCountdown == 1)
+                {
+                    document.getElementById("p" + (currentPrime - 1)).style.color = colorIsSet;
+                    currentPrime++;
+                }
+                blinkingCountdown--;
+                
             }
         }
 
