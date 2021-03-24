@@ -18,7 +18,7 @@
                 h1{font-family: Beans; size: 18px; color: #007a99; text-shadow: 3px 3px #005d6d; border: 3px solid black; user-select: none; -webkit-text-stroke: ;}
                 h2{font-family: Beans; font-size: 40px; color: #007a99; text-shadow: 3px 3px #005d6d; text-align: right; z-index: 10; float: left;}
                 h3{font-family: Beans; size: 8%; color: #000000; text-shadow: 3px 3px #cccccc; text-align: center; background-color: white; box-shadow: 3px 3px #003d4d; z-index: 10; border: 3px solid black; float: left;}
-                p{font-family: Beans; size: 1%; color: #007a99; text-shadow: 3px 3px;}
+                p{font-family: Arial, Helvetica, sans-serif; font-size: 60%; color: #000000;}
 
 
                 ul 
@@ -67,7 +67,7 @@
             <li><a>About</a></li>
           </ul>
         <div id="Content" style="position: absolute; width: 100%; height: 100%; margin-top: 0%;">
-            <div style="width: 80%; margin-left: 10%; margin-top: 5%; background-color: #9FE4FF; z-index: 1; box-shadow: 10px 10px #003d4d; border:3px solid black; padding-bottom: 30px;; position: absolute;">
+            <div style="width: 80%; margin-left: 10%; margin-top: 5%; background-color: #9FE4FF; z-index: 1; box-shadow: 10px 10px #003d4d; border:3px solid black; padding-bottom: 30px; position: absolute;">
                 <div id="LOGOCONTAINER" style="position: relative; width: 100%;">
                     <h2 id="LOGO" style="width: 80%; left: 10%; text-align: center; cursor: default; position: relative;">THE SIEVE OF ERATOSTHENES</h2>
                 </div>
@@ -80,9 +80,15 @@
                     <h3 id="STOP" onclick="StopIntervalC();" style="width: 24%; margin-left: 8%; font-size: 200%; cursor: pointer;">STOP</h3>
                     <h3 id="RESET" onclick="ChangeNumbers(0);" style="width: 24%; margin-left: 8%; font-size: 200%; cursor: pointer;">RESET</h3>
                 </div>
-                <div id="AP"></div>
                 <h3 id="USEDPRIMES" style="width: 74%; left: 8%; font-size: 29px; line-height: 60px; text-align: center; cursor: default; position: relative; padding-left: 5%; padding-right: 5%; padding-top: 14px; padding-bottom: 14px; color:#007a99; word-break:normal;"></h3>
-            </div> 
+                <div style="float:top; width: 84%; float: left; background-color: white; border: 3px solid black; text-align: center; margin-left: 8%; margin-top: 2%; box-shadow: 3px 3px #003d4d; font-size: 30px; cursor: pointer;" onclick="ChangeNumbers(-1)">
+                <p style="text-align: left; margin-left: 15px;">Prime numbers are numbers that cannot be devided by any number other then one, or it self, to result in a whole number.
+                <br><br>For example, 6 : 3 = 2, two is a whole number, ergo six is not a prime number. 
+                <br><br>However 3 : 2 = 1.5, there is nothing three can be devided by other than one or itself, that would result in a whole number, ergo three is a prime number. 
+                </p>
+                </div>
+            </div>
+            
         </div>
     </body>
     <script>
@@ -189,6 +195,7 @@
                 {
                     div.style.color = "darkgreen";
                 }
+                
                 n++;
                 document.getElementById("ViewContainer").append(div);
             }
