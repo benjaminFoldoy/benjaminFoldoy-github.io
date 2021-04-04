@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>The Sieve Of Eratosthenes</title>
+        <style>
+
+            div {
+                -webkit-user-select: none; /* Safari */
+                -ms-user-select: none; /* IE 10 and IE 11 */
+                user-select: none; /* Standard syntax */
+                font-family: Beans;
+                }
+                
+                @font-face {
+                    font-family: Beans;
+                    src: url("https://benjaminfoldoy.github.io/Assets/pixel-perfect-beans.ttf");
+                }
+                h1{font-family: Beans; size: 18px; color: #007a99; text-shadow: 3px 3px #005d6d; border: 3px solid black; user-select: none;}
+                h2{font-family: Beans; font-size: 40px; color: #007a99; text-shadow: 3px 3px #005d6d; text-align: right; z-index: 10; float: left;}
+                h3{font-family: Beans; size: 8%; color: #000000; text-shadow: 3px 3px #cccccc; text-align: center; background-color: white; box-shadow: 3px 3px #003d4d; z-index: 10; border: 3px solid black; float: left;}
+                p{font-family: Arial, Helvetica, sans-serif; font-size: 60%; color: #000000;}
+
+
+                ul 
+                {
+                    list-style-type: none;
+                    margin: 0;
+                    padding: 0;
+                    overflow: hidden;
+                    background-color: #003d4d;
+                }
+
+                li 
+                {
+                    float: left;
+                }
+
+                li a 
+                {
+                    display: block;
+                    color: white;
+                    font-family: Beans;
+                    text-align: center;
+                    font-size: 200%;
+                    padding: 14px 16px;
+                    text-decoration: none;
+                    cursor: pointer;
+                }
+
+                li a:hover:not(.active) 
+                {
+                    background-color: #111;
+                }
+
+                .active 
+                {
+                    background-color: #000000;
+                }
+            </style>
+    </head>
+    <body style="background-color: #006680; width: 100%; height: 100%;">
+
+        <ul style="margin-left: -10px; margin-top: -15px;">
+            <li><a class="active" onclick="OpenMain()">Benjamin Foldøy Grimstad</a></li>
+            <li><a onclick="">Lame Games</a></li>
+            <li><a onclick="">Contact</a></li>
+            <li><a>About</a></li>
+          </ul>
+        <div id="Content" style="position: absolute; width: 100%; height: 100%; margin-top: 0%;">
+            <div style="width: 80%; margin-left: 10%; margin-top: 5%; background-color: #9FE4FF; z-index: 1; box-shadow: 10px 10px #003d4d; border:3px solid black; padding-bottom: 30px; position: absolute;">
+                <div id="LOGOCONTAINER" style="position: relative; width: 100%;">
+                    <h2 id="LOGO" style="width: 80%; left: 10%; text-align: center; cursor: default; position: relative;">PI</h2>
+                </div>
+            </div>
+            
+        </div>
+    </body>
+    <script>
+        var IN = [];
+        var SumOfIN = 0;
+        var Plus = true;
+        var Times = 10000000;
+        for(var i = 1; i < Times + 2; i++)
+        {
+            IN.push(1/i);
+        }
+        for(var i = 0; i < Times; i+=2)
+        {
+            if(Plus === true)
+            {
+                SumOfIN += IN[i];
+                Plus = false;
+            }
+            else
+            {
+                SumOfIN -= IN[i];
+                Plus = true;
+            }
+        }
+        var output = 4 * SumOfIN;
+        alert(output);
+    </script>
+</html>
