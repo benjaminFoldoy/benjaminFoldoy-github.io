@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>The Sieve Of Eratosthenes</title>
+        <style>
+
+            div {
+                -webkit-user-select: none; /* Safari */
+                -ms-user-select: none; /* IE 10 and IE 11 */
+                user-select: none; /* Standard syntax */
+                font-family: Beans;
+                }
+                
+                @font-face {
+                    font-family: Beans;
+                    src: url("https://benjaminfoldoy.github.io/Assets/pixel-perfect-beans.ttf");
+                }
+                h1{font-family: Beans; size: 18px; color: #007a99; text-shadow: 3px 3px #005d6d; border: 3px solid black; user-select: none;}
+                h2{font-family: Beans; font-size: 40px; color: #007a99; text-shadow: 3px 3px #005d6d; text-align: right; z-index: 10; float: left;}
+                h3{font-family: Beans; size: 8%; color: #000000; text-shadow: 3px 3px #cccccc; text-align: center; background-color: white; box-shadow: 3px 3px #003d4d; z-index: 10; border: 3px solid black; float: left;}
+                p{font-family: Arial, Helvetica, sans-serif; font-size: 60%; color: #000000;}
+
+
+                ul 
+                {
+                    list-style-type: none;
+                    margin: 0;
+                    padding: 0;
+                    overflow: hidden;
+                    background-color: #003d4d;
+                }
+
+                li 
+                {
+                    float: left;
+                }
+
+                li a 
+                {
+                    display: block;
+                    color: white;
+                    font-family: Beans;
+                    text-align: center;
+                    font-size: 200%;
+                    padding: 14px 16px;
+                    text-decoration: none;
+                    cursor: pointer;
+                }
+
+                li a:hover:not(.active) 
+                {
+                    background-color: #111;
+                }
+
+                .active 
+                {
+                    background-color: #000000;
+                }
+            </style>
+    </head>
+    <body id="Main" style="background-color: #006680; width: 100%; height: 100%;">
+
+        <ul style="margin-left: -10px; margin-top: -15px;">
+            <li><a class="active" onclick="OpenMain()">Benjamin Foldøy Grimstad</a></li>
+            <li><a onclick="">Lame Games</a></li>
+            <li><a onclick="">Contact</a></li>
+            <li><a>About</a></li>
+          </ul>
+        <div id="Content" style="position: absolute; width: 100%; height: 100%; margin-top: 0%;">
+            <div id="background" style="width: 80%; margin-left: 10%; margin-top: 5%; background-color: #9FE4FF; z-index: 1; box-shadow: 10px 10px #003d4d; border:3px solid black; padding-bottom: 30px; position: absolute;">
+                <div id="LOGOCONTAINER" style="position: relative; width: 100%;">
+                    <h2 id="LOGO" style="width: 80%; left: 10%; text-align: center; cursor: default; position: absolute; margin-top: -70px;">PI</h2>
+                    <div id="Graph" style="width: 1000px; height: 1000px; background-color: white; margin-top: 100px; margin-left: 50px; box-shadow: 10px 10px #003d4d; border:3px solid black;">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script>
+        var width = 1000;
+        var GoalNumberOfBalls = 8000;
+        var CurrentNumberOfBalls = 0;
+        var NumberOfBallsPerInterval = 10;
+
+        UpdateSizes();
+        SetValues();
+        alert(NumberOfBallsPerInterval);
+        var PointsInterval = setInterval(AddPoints, 10);
+
+        var UpdateSizesInterval = setInterval(UpdateSizes, 10);
+
+        CreateGrid();
+        function CreateGrid()
+        {
+            var container = document.getElementById("Graph");
+
+            var Circle = document.createElement("div");
+            Circle.style.position = "absolute";
+            Circle.style.borderRadius = "50%";
+            Circle.style.opacity = "30%";
+            Circle.style.width = width*0.7 + "px";
+            Circle.style.height = width*0.7 + "px";
+            Circle.style.backgroundColor = "#005d6d";
+
+            container.appendChild(Circle);
+
+            var XLine = document.createElement("div");
+            XLine.style.position = "absolute";
+            XLine.style.width = width*0.7 + "px";
+            XLine.style.height = width*0.005 + "px";
+            XLine.style.marginTop = width*0.7*0.5 + "px";
+            XLine.style.backgroundColor = "#005d6d";
+
+            container.appendChild(XLine);
+
+
+            var YLine = document.createElement("div");
+            YLine.style.position = "absolute";
+            YLine.style.width = width*0.005 + "px";
+            YLine.style.height = width*0.7 + "px";
+            YLine.style.marginLeft = width*0.7*0.5 + "px";
+            YLine.style.backgroundColor = "#005d6d";
+
+            container.appendChild(YLine);
+        }
+
+        function SetValues()
+        {
+            NumberOfBallsPerInterval = GoalNumberOfBalls/100;
+        }
+
+        function AddPoints()
+        {
+            var container = document.getElementById("Graph");
+
+            for(var i = CurrentNumberOfBalls; i <= CurrentNumberOfBalls + NumberOfBallsPerInterval; i++)
+            {
+
+                var posX = Math.floor((width * 0.696)* Math.random());
+                var posY = Math.floor((width * 0.696)* Math.random());
+
+                var Point = document.createElement("div");
+                Point.style.borderRadius = "50%";
+                Point.style.backgroundColor = "#ff0000";
+                Point.style.position = "absolute";
+                Point.id = i;
+                Point.style.opacity = "50%";
+                Point.style.height = width* 0.004 + "px"
+                Point.style.width = width* 0.004 + "px";
+                Point.style.marginTop = posY + "px";
+                Point.style.marginLeft = posX + "px";
+                container.appendChild(Point);
+            }
+        }
+
+        function CheckPoints()
+        {
+            for(var i = 0; i <= GoalNumberOfBalls; i++)
+            {
+                document.getElementById(i).style.backgroundColor = "#ff0000";
+            }
+        }
+
+        CheckPoints();
+
+        function UpdateSizes()
+        {
+            width = document.getElementById("Main").offsetWidth;
+            document.getElementById("background").style.width = width* 0.8 + "px";
+            document.getElementById("background").style.marginLeft = width* 0.1 + "px";
+            document.getElementById("Graph").style.width = width* 0.7 + "px";
+            document.getElementById("Graph").style.height = width* 0.7 + "px";
+            document.getElementById("Graph").style.marginLeft = width* 0.05 + "px";
+        }
+    </script>
+</html>
