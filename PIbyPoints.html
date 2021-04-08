@@ -56,7 +56,7 @@
                 {
                     background-color: #000000;
                 }
-            </style>
+        </style>
     </head>
     <body id="Main" style="background-color: #006680; width: 100%; height: 100%;">
 
@@ -71,21 +71,45 @@
                 <div id="LOGOCONTAINER" style="position: relative; width: 100%;">
                     <h2 id="LOGO" style="width: 80%; left: 10%; text-align: center; cursor: default; position: absolute; margin-top: -70px;">PI</h2>
                     <div id="Graph" style="width: 1000px; height: 1000px; background-color: white; margin-top: 100px; margin-left: 50px; box-shadow: 10px 10px #003d4d; border:3px solid black;">
+                    <div id="A" style="font-size: 400%; position: absolute; z-index: 100;">A =</div>
+                    <div id="B" style="font-size: 400%; position: absolute; z-index: 100;">B =</div>
+                    <div id="C" style="font-size: 400%; position: absolute; z-index: 100;">C =</div>
+                    <div id="D" style="font-size: 400%; position: absolute; z-index: 100;">D =</div>
 
+                    <div style="height: 3px; width: 12%; background-color: black; position: absolute; margin-left: 26%; margin-top: 28.5%; z-index: 1000;"></div>
+                    <div style="height: 3px; width: 12%; background-color: black; position: absolute; margin-left: 63%; margin-top: 28.5%; z-index: 1000;"></div>
+                    <div style="height: 3px; width: 12%; background-color: black; position: absolute; margin-left: 26%; margin-top: 59.6%; z-index: 1000;"></div>
+                    <div style="height: 3px; width: 12%; background-color: black; position: absolute; margin-left: 63%; margin-top: 59.6%; z-index: 1000;"></div>
+
+                    <div id="TellerA" style="color: #005566;  margin-top: 23%; margin-left: 27%; position: absolute; z-index: 1000; font-size: 200%;">gggg</div>
+                    <div id="NevnerA" style="margin-top: 28%; margin-left: 27%; position: absolute; z-index: 1000; font-size: 200%;">gggg</div>
+
+                    <div id="TellerB" style="color: #005566;  margin-top: 23%; margin-left: 27%; position: absolute; z-index: 1000; font-size: 200%;">gggg</div>
+                    <div id="NevnerB" style="margin-top: 28%; margin-left: 27%; position: absolute; z-index: 1000; font-size: 200%;">gggg</div>
+
+                    <div id="TellerC" style="color: #005566;  margin-top: 23%; margin-left: 27%; position: absolute; z-index: 1000; font-size: 200%;">gggg</div>
+                    <div id="NevnerC" style="margin-top: 28%; margin-left: 27%; position: absolute; z-index: 1000; font-size: 200%;">gggg</div>
+
+                    <div id="TellerD" style="color: #005566;  margin-top: 23%; margin-left: 27%; position: absolute; z-index: 1000; font-size: 200%;">gggg</div>
+                    <div id="NevnerD" style="margin-top: 28%; margin-left: 27%; position: absolute; z-index: 1000; font-size: 200%;">gggg</div>
                     </div>
+
+                    <div id="pi" style="position: absolute; margin-left: 10px; margin-top: 7px;"> pi </div>
                 </div>
             </div>
         </div>
     </body>
     <script>
         var width = 1000;
-        var GoalNumberOfBalls = 8000;
+        var GoalNumberOfBalls = 80000;
         var CurrentNumberOfBalls = 0;
-        var NumberOfBallsPerInterval = 10;
+        var NumberOfBallsPerInterval = 1000000;
+        var Tot = [0, 0, 0, 0];
+        var Inside = [0, 0, 0, 0];
 
         UpdateSizes();
         SetValues();
-        alert(NumberOfBallsPerInterval);
+        //alert(NumberOfBallsPerInterval);
         var PointsInterval = setInterval(AddPoints, 10);
 
         var UpdateSizesInterval = setInterval(UpdateSizes, 10);
@@ -98,31 +122,103 @@
             var Circle = document.createElement("div");
             Circle.style.position = "absolute";
             Circle.style.borderRadius = "50%";
-            Circle.style.opacity = "30%";
+            Circle.style.zIndex = 0;
+            Circle.style.opacity = "100%";
             Circle.style.width = width*0.7 + "px";
             Circle.style.height = width*0.7 + "px";
-            Circle.style.backgroundColor = "#005d6d";
+            Circle.style.backgroundColor = "#000000";
+
+            container.appendChild(Circle);
+
+            var Circle = document.createElement("div");
+            Circle.style.position = "absolute";
+            Circle.style.borderRadius = "50%";
+            Circle.style.zIndex = 0;
+            Circle.style.opacity = "100%";
+            Circle.style.width = width*0.698 + "px";
+            Circle.style.height = width*0.698 + "px";
+            Circle.style.marginLeft = width*0.001 + "px";
+            Circle.style.marginTop = width*0.001 + "px";
+            Circle.style.backgroundColor = "#ffffff";
 
             container.appendChild(Circle);
 
             var XLine = document.createElement("div");
             XLine.style.position = "absolute";
+            XLine.style.zIndex = 100;
             XLine.style.width = width*0.7 + "px";
-            XLine.style.height = width*0.005 + "px";
-            XLine.style.marginTop = width*0.7*0.5 + "px";
-            XLine.style.backgroundColor = "#005d6d";
+            XLine.style.height = width*0.003 + "px";
+            XLine.style.marginTop = width*0.6995*0.5 + "px";
+            XLine.style.backgroundColor = "#000000";
 
             container.appendChild(XLine);
 
 
             var YLine = document.createElement("div");
             YLine.style.position = "absolute";
-            YLine.style.width = width*0.005 + "px";
+            YLine.style.zIndex = 100;
+            YLine.style.width = width*0.003 + "px";
             YLine.style.height = width*0.7 + "px";
-            YLine.style.marginLeft = width*0.7*0.5 + "px";
-            YLine.style.backgroundColor = "#005d6d";
+            YLine.style.marginLeft = width*0.6995*0.5 + "px";
+            YLine.style.backgroundColor = "#000000";
 
             container.appendChild(YLine);
+
+            for(var i = 1; i < 4; i = i + 2)
+            {
+            var div = document.createElement("div");
+            div.style.position = "absolute";
+            div.style.zIndex = 100;
+            div.style.width = width*0.7*0.05 + "px";
+            div.style.height = width*0.7*0.005 + "px";
+            div.style.marginTop = width*0.7*i*0.25 - width*0.7*0.00125 + "px";
+            div.style.marginLeft = width*0.7*0.475 + "px"; 
+            div.style.backgroundColor = "#00aa00";
+
+            container.appendChild(div);
+            }
+
+            for(var i = 1; i < 9; i = i + 2)
+            {
+            var div = document.createElement("div");
+            div.style.position = "absolute";
+            div.style.zIndex = 101;
+            div.style.width = width*0.7*0.05 + "px";
+            div.style.height = width*0.7*0.003 + "px";
+            div.style.marginTop = width*0.7*i*0.125 + width*0.7*0.000625 + "px";
+            div.style.marginLeft = width*0.7*0.475 + "px"; 
+            div.style.backgroundColor = "#AA0000";
+
+            container.appendChild(div);
+            }
+
+            for(var i = 1; i < 4; i = i + 2)
+            {
+            var div = document.createElement("div");
+            div.style.position = "absolute";
+            div.style.zIndex = 100;
+            div.style.height = width*0.7*0.05 + "px";
+            div.style.width = width*0.7*0.005 + "px";
+            div.style.marginLeft = width*0.7*i*0.25 - width*0.7*0.00125 + "px";
+            div.style.marginTop = width*0.7*0.475 + "px"; 
+            div.style.backgroundColor = "#00AA00";
+
+            container.appendChild(div);
+            }
+
+            for(var i = 1; i < 9; i = i + 2)
+            {
+            var div = document.createElement("div");
+            div.style.position = "absolute";
+            div.style.zIndex = 101;
+            div.style.height = width*0.7*0.05 + "px";
+            div.style.width = width*0.7*0.003 + "px";
+            div.style.marginLeft = width*0.7*i*0.125 + width*0.7*0.000625 + "px";
+            div.style.marginTop = width*0.7*0.475 + "px"; 
+            div.style.backgroundColor = "#AA0000";
+
+            container.appendChild(div);
+            }
         }
 
         function SetValues()
@@ -137,20 +233,87 @@
             for(var i = CurrentNumberOfBalls; i <= CurrentNumberOfBalls + NumberOfBallsPerInterval; i++)
             {
 
-                var posX = Math.floor((width * 0.696)* Math.random());
-                var posY = Math.floor((width * 0.696)* Math.random());
+                var posX = Math.floor((width * 0.697)* Math.random());
+                var posY = Math.floor((width * 0.697)* Math.random());
 
                 var Point = document.createElement("div");
                 Point.style.borderRadius = "50%";
-                Point.style.backgroundColor = "#ff0000";
+                Point.style.backgroundColor = "#0099AA";
                 Point.style.position = "absolute";
+                Point.style.zIndex = 0;
                 Point.id = i;
-                Point.style.opacity = "50%";
+                Point.style.opacity = "20%";
                 Point.style.height = width* 0.004 + "px"
                 Point.style.width = width* 0.004 + "px";
                 Point.style.marginTop = posY + "px";
                 Point.style.marginLeft = posX + "px";
-                container.appendChild(Point);
+                
+                if(posX < (width*0.697*0.5) && posY < width*0.697*0.5)
+                {
+
+                    if((width*0.697*0.5)**2 - (width*0.697*0.5-posX)**2 < (width*0.697*0.5 -posY)**2)
+                    {
+                        Point.style.backgroundColor = "#AA1100";
+                    }
+                    else
+                    {
+                        Inside[0]++;
+                    }
+                }
+                if(posX > (width*0.697*0.5) && posY < width*0.697*0.5)
+                {
+
+                    if((width*0.697*0.5)**2 - (width*0.697*0.5-posX)**2 < (width*0.697*0.5 -posY)**2)
+                    {
+                        Point.style.backgroundColor = "#AA1100";
+                    }
+                    else
+                    {
+                        Inside[1]++;
+                    }
+                }
+                if(posX < (width*0.697*0.5) && posY > width*0.697*0.5)
+                {
+
+                    if((width*0.697*0.5)**2 - (width*0.697*0.5-posX)**2 < (width*0.697*0.5 -posY)**2)
+                    {
+                        Point.style.backgroundColor = "#AA1100";
+                    }
+                    else
+                    {
+                        Inside[2]++;
+                    }
+                }
+                if(posX > (width*0.697*0.5) && posY > width*0.697*0.5)
+                {
+
+                    if((width*0.697*0.5)**2 - (width*0.697*0.5-posX)**2 < (width*0.697*0.5 -posY)**2)
+                    {
+                        Point.style.backgroundColor = "#AA1100";
+                    }
+                    else
+                    {
+                        Inside[3]++;
+                    }
+                }
+                //container.appendChild(Point);
+
+                if(posX < (width*0.697*0.5) && posY < (width*0.697*0.5))
+                {
+                    Tot[0]++;
+                }
+                if(posX > (width*0.697*0.5) && posY < (width*0.697*0.5))
+                {
+                    Tot[1]++;
+                }
+                if(posX < (width*0.697*0.5) && posY > (width*0.697*0.5))
+                {
+                    Tot[2]++;
+                }
+                if(posX > (width*0.697*0.5) && posY > (width*0.697*0.5))
+                {
+                    Tot[3]++;
+                }
             }
         }
 
@@ -172,6 +335,64 @@
             document.getElementById("Graph").style.width = width* 0.7 + "px";
             document.getElementById("Graph").style.height = width* 0.7 + "px";
             document.getElementById("Graph").style.marginLeft = width* 0.05 + "px";
+
+            document.getElementById("A").style.fontSize = width*0.05 + "px";
+            document.getElementById("A").style.marginLeft = width*0.10 + "px";
+            document.getElementById("A").style.marginTop = width*0.2 + "px";
+
+            document.getElementById("B").style.fontSize = width*0.05 + "px";
+            document.getElementById("B").style.marginLeft = width*0.40 + "px";
+            document.getElementById("B").style.marginTop = width*0.2 + "px";
+
+            document.getElementById("C").style.fontSize = width*0.05 + "px";
+            document.getElementById("C").style.marginLeft = width*0.10 + "px";
+            document.getElementById("C").style.marginTop = width*0.45 + "px";
+
+            document.getElementById("D").style.fontSize = width*0.05 + "px";
+            document.getElementById("D").style.marginLeft = width*0.40 + "px";
+            document.getElementById("D").style.marginTop = width*0.45 + "px";
+
+            document.getElementById("TellerA").style.fontSize = width*0.03 + "px";
+            document.getElementById("TellerA").style.marginLeft = width*0.21 + "px";
+            document.getElementById("TellerA").style.marginTop = width*0.19 + "px";
+            document.getElementById("TellerA").innerHTML = Inside[0];
+
+            document.getElementById("NevnerA").style.fontSize = width*0.03 + "px";
+            document.getElementById("NevnerA").style.marginLeft = width*0.21 + "px";
+            document.getElementById("NevnerA").style.marginTop = width*0.24 + "px";
+            document.getElementById("NevnerA").innerHTML = Tot[0];
+
+            document.getElementById("TellerB").style.fontSize = width*0.03 + "px";
+            document.getElementById("TellerB").style.marginLeft = width*0.51 + "px";
+            document.getElementById("TellerB").style.marginTop = width*0.19 + "px";
+            document.getElementById("TellerB").innerHTML = Inside[1];
+
+            document.getElementById("NevnerB").style.fontSize = width*0.03 + "px";
+            document.getElementById("NevnerB").style.marginLeft = width*0.51 + "px";
+            document.getElementById("NevnerB").style.marginTop = width*0.24 + "px";
+            document.getElementById("NevnerB").innerHTML = Tot[1];
+
+            document.getElementById("TellerC").style.fontSize = width*0.03 + "px";
+            document.getElementById("TellerC").style.marginLeft = width*0.21 + "px";
+            document.getElementById("TellerC").style.marginTop = width*0.44 + "px";
+            document.getElementById("TellerC").innerHTML = Inside[2];
+
+            document.getElementById("NevnerC").style.fontSize = width*0.03 + "px";
+            document.getElementById("NevnerC").style.marginLeft = width*0.21 + "px";
+            document.getElementById("NevnerC").style.marginTop = width*0.49 + "px";
+            document.getElementById("NevnerC").innerHTML = Tot[2];
+
+            document.getElementById("TellerD").style.fontSize = width*0.03 + "px";
+            document.getElementById("TellerD").style.marginLeft = width*0.51 + "px";
+            document.getElementById("TellerD").style.marginTop = width*0.44 + "px";
+            document.getElementById("TellerD").innerHTML = Inside[3];
+
+            document.getElementById("NevnerD").style.fontSize = width*0.03 + "px";
+            document.getElementById("NevnerD").style.marginLeft = width*0.51 + "px";
+            document.getElementById("NevnerD").style.marginTop = width*0.49 + "px";
+            document.getElementById("NevnerD").innerHTML = Tot[3];
+
+            document.getElementById("pi").innerHTML = (Inside[0] / Tot[0] + Inside[1] / Tot[1] + Inside[2] / Tot[2] + Inside[3] / Tot[3]);
         }
     </script>
 </html>
