@@ -7,9 +7,11 @@ class Vector2D{
 
 class CanvasObject extends Vector2D{
 
-    constructor(Name, Position, Size){
+    constructor(Name, xPos, yPos, xSize, ySize){
         this.Name = Name;
-        this.Position = Position;
-        this.Size = Size;
+        this.xPos = xPos;
+        this.yPos = yPos;
+        this.xSize = xSize;
+        this.ySize = ySize;
     }
 };
