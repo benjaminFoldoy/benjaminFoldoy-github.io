@@ -32,7 +32,7 @@ body {
 
 .button{
     cursor: pointer;
-
+    font-size: 30px;
 }
 .flex-container {
     display: flex;
@@ -84,12 +84,12 @@ p {
     <img src="Assets/Front.png" alt="" width="100%">
     <div class="spacing"></div>
     <div class="flex-container">
-        <div class="flex-item-left lift">
+        <button class="flex-item-left lift button" onclick="openUtgivelser()">
             Utgivelser
-        </div>
-        <div class="flex-item-right lift">
+        </button>
+        <button class="flex-item-right lift button" onclick="">
             Bestill bøker
-        </div>
+        </button>
     </div>
 
     <div class="flex-container">
@@ -120,4 +120,12 @@ p {
 
     </div>
 </body>
+<script>
+    function openUtgivelser(){
+        window.location.href = "Bestill.html"
+    }
+    function openBestillBøker(){
+        window.location.href = "Utgivelser.html"
+    }
+</script>
 </html>
