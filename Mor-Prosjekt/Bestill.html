@@ -14,17 +14,22 @@
     }
 </style>
 <body class="removeBorder" style="background-color:#e7bd03;">
-    <img src="Mor-Prosjekt/Assets/Front.png" alt="" width="100%">
+    <img src="Assets/Front.png" alt="" width="100%">
     <form action="https://formsubmit.co/benjaminfoldoy@gmail.com" method="POST">
-        navn:
-        <input type="text" name="name" required>
-        email:
+        Fornavn:
+        <input type="text" name="given-name" required>
+        Etternavn:
+        <input type="text" name="family-name" required>
+        Adresse:
+        <input type="text" name="street-adress">
+        Postkode:
+        <input type="text" name="postal-code">
+        E-mail:
         <input type="email" name="email" required>
-        tlf:
-        <input type="number" name="number" requested>
-        total:
-        <input type="number" name="total">
-        <label name="totes" value = "0">u</label>
+        Mobilnummer:
+        <input type="text" name="telefonnummer" requested>
+        Total:
+        <input type="text" name="total" id="total" readonly>
         <button type="submit">Bekreft</button>
     </form>
     
