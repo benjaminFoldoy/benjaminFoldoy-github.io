@@ -1,0 +1,79 @@
+#storyBoard table{
+  font-size: 0.6em;
+  width: calc(100% - 6px);
+  border: 40px white solid;
+  margin-left: 3px;
+  background-color: white;
+}
+
+#storyBoard tr .name{
+  width: 10em;
+  padding: 1em;
+  vertical-align: text-top;
+}
+
+#storyBoard tr .speech{
+  width: calc(100% - 1em);
+  padding: 1em;
+  text-align: start;
+}
+
+#storyBoard tr .text{
+  text-align: left;
+}
+
+#storyBoard{
+  margin-top: 20px;
+  width: 80%;
+  margin-left: 10%;
+  padding: 10px 10px 10px 10px;
+  background-color: #03050e;
+}
+
+#storyBoard div{
+  width: fit-content;
+  margin-top: 200px;
+}
+
+#storyBoard .storyBoardImage{
+  margin-bottom: 40px;
+}
+
+@-webkit-keyframes spaceboots {
+	0% { -webkit-transform: translate(2px, 1px) rotate(0deg); }
+	10% { -webkit-transform: translate(-1px, -2px) rotate(-1deg); }
+	20% { -webkit-transform: translate(-3px, 0px) rotate(1deg); }
+	30% { -webkit-transform: translate(0px, 2px) rotate(0deg); }
+	40% { -webkit-transform: translate(1px, -1px) rotate(1deg); }
+	50% { -webkit-transform: translate(-1px, 2px) rotate(-1deg); }
+	60% { -webkit-transform: translate(-3px, 1px) rotate(0deg); }
+	70% { -webkit-transform: translate(2px, 1px) rotate(-1deg); }
+	80% { -webkit-transform: translate(-1px, -1px) rotate(1deg); }
+	90% { -webkit-transform: translate(2px, 2px) rotate(0deg); }
+	100% { -webkit-transform: translate(1px, -2px) rotate(-1deg); }
+}
+
+#storyBoard .shake1{
+  display: inline-block;
+  -webkit-animation-name: spaceboots;
+	-webkit-animation-duration: 0.6s;
+	-webkit-transform-origin:50% 50%;
+	-webkit-animation-iteration-count: infinite;
+	-webkit-animation-timing-function: linear;
+}
+#storyBoard .shake2{
+  display: inline-block;
+  -webkit-animation-name: spaceboots;
+	-webkit-animation-duration: 0.3s;
+	-webkit-transform-origin:50% 50%;
+	-webkit-animation-iteration-count: infinite;
+	-webkit-animation-timing-function: linear;
+}
+#storyBoard .shake3{
+  display: inline-block;
+  -webkit-animation-name: spaceboots;
+	-webkit-animation-duration: 0.1s;
+	-webkit-transform-origin:50% 50%;
+	-webkit-animation-iteration-count: infinite;
+	-webkit-animation-timing-function: linear;
+}
