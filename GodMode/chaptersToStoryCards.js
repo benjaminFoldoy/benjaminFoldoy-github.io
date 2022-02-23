@@ -28,7 +28,6 @@ function readTextFile(file)
                             }
                             catch{}
                         }
-                        console.log(inputLines)
                         if(inputLines.length != 0){
                             textToCard(inputLines)
                         }
