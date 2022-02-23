@@ -51,7 +51,7 @@ function textToCard(lines){
 
     for (var line = 0; line < lines.length; line++){
         if(lines[line].match("IMG%%")){
-            image = 'Assets/' + lines[line].slice(5);
+            image = 'Assets/' + lines[line].slice(5) + "g";
             console.log(image)
         }
         else if(lines[line].match("TXT%%")){
