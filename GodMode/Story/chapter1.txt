@@ -1,5 +1,5 @@
 NSC%%
-IMG%%CH1-IMG0.png
+IMG%%CH1-IMG0.pngh
 TXT%%A boy opens his eyes after what seems to be an eternity of sleep, or possibly death.
 TXT%%All he sees around him is a hell-scape of fire and rubble.
 TXT%%A muffled sound from the distance mutters some kind of noice
