@@ -20,13 +20,11 @@ function readTextFile(file)
                     }
                 }
                     scFirstLine.push(lines.length)
-                    console.log(scFirstLine)
                     for (var i = 0; i<scFirstLine.length;i++){
                         inputLines = [];
                         for (var start = scFirstLine[i] + 1;start < scFirstLine[i+1]; start++){
                             try{
                                 inputLines.push(lines[start])
-                                console.log(lines[start])
                             }
                             catch{}
                         }
@@ -54,7 +52,8 @@ function textToCard(lines){
 
     for (var line = 0; line < lines.length; line++){
         if(lines[line].match("IMG%%")){
-            image = 'GodMode/Assets/' + lines[line].slice(5);
+            image = 'GodMode/Assets/' + lines[line].slice(5).slice(0,-1);
+            console.log(image)
         }
         else if(lines[line].match("TXT%%")){
             order.push("")
@@ -77,6 +76,5 @@ function textToCard(lines){
         }
         
     }
-    console.log(order.length, texts.length, image)
     document.getElementById("storyBoard").appendChild(createStoryCard(image, order, texts))
 }
