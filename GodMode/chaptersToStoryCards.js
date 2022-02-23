@@ -25,7 +25,7 @@ function readTextFile(file)
                         for (var start = scFirstLine[i] + 1;start < scFirstLine[i+1]; start++){
                             try{
                                 inputLines.push(lines[start])
-                                console.log(lines[start])
+                                //console.log(lines[start])
                             }
                             catch{}
                         }
