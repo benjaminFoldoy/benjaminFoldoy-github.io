@@ -43,7 +43,7 @@ function readTextFile(file)
     rawFile.send(null);
 }
 
-readTextFile("Story/chapter1.txt");
+readTextFile("GodMode/Story/chapter1.txt");
 
 function textToCard(lines){
    // lines = text.split("\n")
@@ -54,7 +54,7 @@ function textToCard(lines){
 
     for (var line = 0; line < lines.length; line++){
         if(lines[line].match("IMG%%")){
-            image = 'GODMODE/Assets/' + lines[line].slice(5).slice(0,-1);
+            image = 'GodMode/Assets/' + lines[line].slice(5).slice(0,-1);
         }
         else if(lines[line].match("TXT%%")){
             order.push("")
