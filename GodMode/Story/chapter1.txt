@@ -21,7 +21,6 @@ TXT%%
 STV%%Hey every body iiIIIiiiiiiIIiiiii am Steeeeeve
 
 NSC%%
-<<<<<<< HEAD
 IMG%%CH1-IMG1.png
 TXT%%A boy opens his eyes after what seems to be an eternity of sleep, or possibly death.
 TXT%%All he sees around him is a hell-scape of fire and rubble.
@@ -47,6 +46,3 @@ NSC%%
 IMG%%Tersty.png
 TXT%%A Er du tørst som fy??? her er drikken for deg. 
 STV%%hjksdlhdjk hjkdfsh uioyuifoewqhjnk,d hjska jklahkl bnmdshbhjlf jkl :) 
-=======
-IMG%%CH1-IMG0.png
->>>>>>> 28b3e030cd6c9b1e0f902eabdc4624cd3d9e8a2d
