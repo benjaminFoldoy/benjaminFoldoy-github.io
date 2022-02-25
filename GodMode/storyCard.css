@@ -53,6 +53,15 @@
 	100% { -webkit-transform: translate(1px, -2px) rotate(-1deg); }
 }
 
+#storyBoard .wobble{
+  display: inline-block;
+  -webkit-animation-name: spaceboots;
+	-webkit-animation-duration: 4s;
+	-webkit-transform-origin:50% 50%;
+	-webkit-animation-iteration-count: infinite;
+	-webkit-animation-timing-function: linear;
+}
+
 #storyBoard .shake1{
   display: inline-block;
   -webkit-animation-name: spaceboots;
