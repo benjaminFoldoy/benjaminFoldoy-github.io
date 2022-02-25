@@ -52,3 +52,4 @@ IMG%%CH1-IMG2.png
 
 NSC%%
 IMG%%CH1-IMG5.png
+<b class='shake3'>jeg døøøøøøøørrr</b>
