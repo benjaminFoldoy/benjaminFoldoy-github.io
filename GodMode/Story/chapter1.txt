@@ -41,3 +41,6 @@ DVN%%Yeah, sure. Just tell me if y...
 TXT%%Steve ends the conversation.
 TXT%%
 STV%%Hey every body iiIIIiiiiiiIIiiiii am Steeeeeve
+NSC%%
+IMG%%Logo1.png
+TXT%%A Er du tørst som fy??? her er drikken for deg.
