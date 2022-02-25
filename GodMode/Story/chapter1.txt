@@ -21,23 +21,4 @@ TXT%%
 STV%%Hey every body iiIIIiiiiiiIIiiiii am Steeeeeve
 
 NSC%%
-IMG%%CH1-IMG1.png
-TXT%%A boy opens his eyes after what seems to be an eternity of sleep, or possibly death.
-TXT%%All he sees around him is a hell-scape of fire and rubble.
-TXT%%A muffled sound from the distance mutters some kind of noice
-UKD%%<b class='shake1'>*A*</b>.........<b class='shake1'>*kin*</b>..........<b class='shake2'>*me*</b>.....
-TXT%%The boy seems confused, wtf is this...
-TXT%%The muffled noise, as well as the fiery mess around him becomes more and more clear.
-UKD%%<b class='shake2'>*Are y*</b>.....<b class='shake2'>*king kiddin*</b>.....<b class='shake3'>*hithead?!*</b>
-TXT%%The boy suddenly remembers his entire existence, all his memories rushing back to him like a river of boring everyday experiences.
-UKD%%<b class='shake2'>you fucking plant, you left me for dead, didn't you?!</b>
-TXT%%
-TXT%%Steve takes off his VR headset.
-TXT%%Tired after yet another three digit number of hours in VR.
-STV%%Yeah Dev, it seams i did... or i gave you an opportunity to shine, you choose.
-DVN%%Well i must admit, i did do a crazy good job back there, while you just fell in and out of conciseness. Btw, can you please come to school tomorrow? It really sucks having Grita hang after me like a dog all day"
-STV%%Some day dev. See you later, ok?
-DVN%%Yeah, sure. Just tell me if y...
-TXT%%Steve ends the conversation.
-TXT%%
-STV%%Hey every body iiIIIiiiiiiIIiiiii am Steeeeeve
+IMG%%CH1-IMG0.png
