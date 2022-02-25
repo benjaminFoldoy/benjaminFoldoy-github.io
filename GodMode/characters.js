@@ -39,6 +39,14 @@ function reload_characters(){
     )
   )
 
+  characters.push(
+    new character(
+      "Gurdis Muhm",
+      "#cc22aa",
+      "GDM"
+    )
+  )
+
 }
 
 reload_characters();
