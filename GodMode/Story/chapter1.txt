@@ -28,7 +28,7 @@ UKK%%Make one for me too, would you kindly?
 TXT%%Steve nods to a camera in the ceiling.
 
 NSC%%
-IMG%%CH1-IMG2.2.jpg
+IMG%%CH1-IMG2.1.jpg
 TXT%%Steve knocks on the door down to the basement.
 TXT%%A bony hand opens the door, reaches for the piece of bread, grabs it, and quickly shuts the door again.
 UKK%%Thank you, brother.
@@ -44,7 +44,7 @@ TXT%%He decides the best cause og action, requirering the least amount of effort
 TXT%%Flawless!
 
 NSC%%
-IMG%%CH1-OMG4.jpg
+IMG%%CH1-IMG4.jpg
 TXT%%Steve throws his sock as hard as he can, from a lying position.
 TXT%%Unfortunately, the sock barely makes it to the window, before making a soft thump, moving the curtains...
 TXT%%Is this enough?
