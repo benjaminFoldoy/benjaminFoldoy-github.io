@@ -22,7 +22,7 @@ TXT%%Steve ends the conversation.
 
 NSC%%
 IMG%%CH1-IMG2.jpg
-TXT%%%Steve's sleep deprived body walks out into the kitchen. It's empty, cold, and absolutely filled to the brim with utter silence.
+TXT%%Steve's sleep deprived body walks out into the kitchen. It's empty, cold, and absolutely filled to the brim with utter silence.
 TXT%%Steve gets a fresh bottle of Tersty out of the fridge, and starts preparing a delightful meal composed of a toast, with butter.
 UKK%%Make one for me too, would you kindly?
 TXT%%Steve nods to a camera in the ceiling.
