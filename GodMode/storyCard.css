@@ -53,9 +53,27 @@
 	100% { -webkit-transform: translate(1px, -2px) rotate(-1deg); }
 }
 
+@-webkit-keyframes heatbeat {
+	0% { -webkit-transform: scale(1); }
+	25% { -webkit-transform: scale(1.5); }
+  30% { -webkit-transform: scale(1); }
+  35% { -webkit-transform: scale(1.5); }
+  40% { -webkit-transform: scale(1); }
+  100% { -webkit-transform: scale(1); }
+}
+
 #storyBoard .wobble{
   display: inline-block;
   -webkit-animation-name: spaceboots;
+	-webkit-animation-duration: 4s;
+	-webkit-transform-origin:50% 50%;
+	-webkit-animation-iteration-count: infinite;
+	-webkit-animation-timing-function: linear;
+}
+
+#storyBoard .heartbeat{
+  display: inline-block;
+  -webkit-animation-name: heartbeat;
 	-webkit-animation-duration: 4s;
 	-webkit-transform-origin:50% 50%;
 	-webkit-animation-iteration-count: infinite;

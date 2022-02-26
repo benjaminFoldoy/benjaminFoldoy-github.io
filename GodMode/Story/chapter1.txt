@@ -24,14 +24,14 @@ NSC%%
 IMG%%CH1-IMG2.jpg
 TXT%%Steve's sleep deprived body walks out into the kitchen. It's empty, cold, and absolutely filled to the brim with utter silence.
 TXT%%Steve gets a fresh bottle of Tersty out of the fridge, and starts preparing a delightful meal composed of a toast, with butter.
-UKK%%Make one for me too, would you kindly?
+UKK%%<p class="heartbeat">Make one for me too, would you kindly?</p>
 TXT%%Steve nods to a camera in the ceiling.
 
 NSC%%
 IMG%%CH1-IMG2.1.jpg
 TXT%%Steve knocks on the door down to the basement.
 TXT%%A bony hand opens the door, reaches for the piece of bread, grabs it, and quickly shuts the door again.
-UKK%%Thank you, brother.
+UKK%%<p class="heartbeat">Thank you, brother.</p>
 STV%%Sure, K.
 
 NSC%%

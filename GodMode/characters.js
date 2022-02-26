@@ -50,7 +50,7 @@ function reload_characters(){
   characters.push(
     new character(
       "Speaker",
-      "#008844",
+      "#004422",
       "UKK"
     )
   )
