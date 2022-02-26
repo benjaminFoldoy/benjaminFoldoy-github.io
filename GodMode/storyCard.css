@@ -53,7 +53,7 @@
 	100% { -webkit-transform: translate(1px, -2px) rotate(-1deg); }
 }
 
-@-webkit-keyframes heatbeat {
+@-webkit-keyframes hb {
 	0% { -webkit-transform: scale(1); }
 	25% { -webkit-transform: scale(1.5); }
   30% { -webkit-transform: scale(1); }
@@ -73,7 +73,7 @@
 
 #storyBoard .heartbeat{
   display: inline-block;
-  -webkit-animation-name: heartbeat;
+  -webkit-animation-name: hb;
 	-webkit-animation-duration: 4s;
 	-webkit-transform-origin:50% 50%;
 	-webkit-animation-iteration-count: infinite;
