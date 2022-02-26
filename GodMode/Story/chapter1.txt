@@ -15,7 +15,7 @@ IMG%%CH1-IMG1.png
 TXT%%Steve takes off his VR headset.
 TXT%%Tired after yet another three digit number of hours in VR.
 STV%%Yeah Dev, it seams i did... or i gave you an opportunity to shine, you choose.
-DVN%%Well i must admit, i did do a crazy good job back there, while you just fell in and out of conciseness. Btw, can you please come to school tomorrow? It really sucks having Grita hang after me like a dog all day"
+DVN%%Well i must admit, i did do a crazy good job back there, while you just fell in and out of conciseness. Btw, can you please come to school tomorrow? It really sucks having Grita hang after me like a dog all day
 STV%%Some day dev. See you later, ok?
 DVN%%Yeah, sure. Just tell me if y...
 TXT%%Steve ends the conversation.
