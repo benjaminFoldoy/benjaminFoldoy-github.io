@@ -37,7 +37,7 @@ STV%%Sure, K.
 NSC%%
 IMG%%CH1-IMG3.jpg
 TXT%%Somebody knocks on the door, fucking hell, it's way to early for this... Steve tucks himself reeeeaaaaaaaally nicely into the duvet and falls back into sleep.
-TXT%%The knocking continues...*knock*...<b class="shake1>*knock*</b>...<b class="shake2>*KNOCK!!*</b>
+TXT%%The knocking continues...*knock*...<b class="shake1">*knock*</b>...<b class="shake2">*KNOCK!!*</b>
 TXT%%Steve tries to think of ways to stop the super loud noise. More specifically: ways that doesn't involve him moving.
 TXT%%But no... There is no suck way....
 TXT%%He decides the best cause og action, requirering the least amount of effort, is to toss one of his socks at the window. The idea is to notify the person making the noise that they should stop.
