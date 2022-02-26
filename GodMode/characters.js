@@ -47,6 +47,14 @@ function reload_characters(){
     )
   )
 
+  characters.push(
+    new character(
+      "Speaker",
+      "#002266",
+      "UKK"
+    )
+  )
+
 }
 
 reload_characters();

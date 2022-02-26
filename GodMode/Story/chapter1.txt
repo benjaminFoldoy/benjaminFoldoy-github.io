@@ -9,29 +9,9 @@ TXT%%The muffled noise, as well as the fiery mess around him becomes more and mo
 UKD%%<b class='shake2'>*Are y*</b>.....<b class='shake2'>*king kiddin*</b>.....<b class='shake3'>*hithead?!*</b>
 TXT%%The boy suddenly remembers his entire existence, all his memories rushing back to him like a river of boring everyday experiences.
 UKD%%<b class='shake2'>you fucking plant, you left me for dead, didn't you?!</b>
-TXT%%
-TXT%%Steve takes off his VR headset.
-TXT%%Tired after yet another three digit number of hours in VR.
-STV%%Yeah Dev, it seams i did... or i gave you an opportunity to shine, you choose.
-DVN%%Well i must admit, i did do a crazy good job back there, while you just fell in and out of conciseness. Btw, can you please come to school tomorrow? It really sucks having Grita hang after me like a dog all day"
-STV%%Some day dev. See you later, ok?
-DVN%%Yeah, sure. Just tell me if y...
-TXT%%Steve ends the conversation.
-TXT%%
-STV%%Hey every body iiIIIiiiiiiIIiiiii am Steeeeeve
 
 NSC%%
 IMG%%CH1-IMG1.png
-TXT%%A boy opens his eyes after what seems to be an eternity of sleep, or possibly death.
-TXT%%All he sees around him is a hell-scape of fire and rubble.
-TXT%%A muffled sound from the distance mutters some kind of noice
-UKD%%<b class='shake1'>*A*</b>.........<b class='shake1'>*kin*</b>..........<b class='shake2'>*me*</b>.....
-TXT%%The boy seems confused, wtf is this...
-TXT%%The muffled noise, as well as the fiery mess around him becomes more and more clear.
-UKD%%<b class='shake2'>*Are y*</b>.....<b class='shake2'>*king kiddin*</b>.....<b class='shake3'>*hithead?!*</b>
-TXT%%The boy suddenly remembers his entire existence, all his memories rushing back to him like a river of boring everyday experiences.
-UKD%%<b class='shake2'>you fucking plant, you left me for dead, didn't you?!</b>
-TXT%%
 TXT%%Steve takes off his VR headset.
 TXT%%Tired after yet another three digit number of hours in VR.
 STV%%Yeah Dev, it seams i did... or i gave you an opportunity to shine, you choose.
@@ -39,18 +19,41 @@ DVN%%Well i must admit, i did do a crazy good job back there, while you just fel
 STV%%Some day dev. See you later, ok?
 DVN%%Yeah, sure. Just tell me if y...
 TXT%%Steve ends the conversation.
-TXT%%
-STV%%Hey every body iiIIIiiiiiiIIiiiii am Steeeeeve
 
 NSC%%
-IMG%%Tersty.png
-TXT%%A Er du tørst som fy??? her er drikken for deg. 
-STV%%hjksdlhdjk hjkdfsh uioyuifoewqhjnk,d hjska jklahkl bnmdshbhjlf jkl :) 
+IMG%%CH1-IMG2.jpg
+TXT%%%Steve's sleep deprived body walks out into the kitchen. It's empty, cold, and absolutely filled to the brim with utter silence.
+TXT%%Steve gets a fresh bottle of Tersty out of the fridge, and starts preparing a delightful meal composed of a toast, with butter.
+UKK%%Make one for me too, would you kindly?
+TXT%%Steve nods to a camera in the ceiling.
 
 NSC%%
-IMG%%CH1-IMG2.png
+IMG%%CH1-IMG2.2.jpg
+TXT%%Steve knocks on the door down to the basement.
+TXT%%A bony hand opens the door, reaches for the piece of bread, grabs it, and quickly shuts the door again.
+UKK%%Thank you, brother.
+STV%%Sure, K.
 
 NSC%%
-IMG%%CH1-IMG5.png
-GDM%%<b class='shake3'>Jeg døøøøøøøørrr</b>
-DVN%%<b class='wobble'>...Og jeg spiser skive</b>
+IMG%%CH1-IMG3.jpg
+TXT%%Somebody knocks on the door, fucking hell, it's way to early for this... Steve tucks himself reeeeaaaaaaaally nicely into the duvet and falls back into sleep.
+TXT%%The knocking continues...*knock*...<b class="shake1>*knock*</b>...<b class="shake2>*KNOCK!!*</b>
+TXT%%Steve tries to think of ways to stop the super loud noise. More specifically: ways that doesn't involve him moving.
+TXT%%But no... There is no suck way....
+TXT%%He decides the best cause og action, requirering the least amount of effort, is to toss one of his socks at the window. The idea is to notify the person making the noise that they should stop.
+TXT%%Flawless!
+
+NSC%%
+IMG%%CH1-OMG4.jpg
+TXT%%Steve throws his sock as hard as he can, from a lying position.
+TXT%%Unfortunately, the sock barely makes it to the window, before making a soft thump, moving the curtains...
+TXT%%Is this enough?
+TXT%%The knocking finally stops...
+TXT%%Finally, Steve closes his eyes again, and awaits a healthy 15-16 hours of more wonderful sleep.
+
+NSC%%
+IMG%%CH1-IMG5.jpg
+TXT%%<b class="shake2>*KNOCK KNOCK KNOCK!!!!*</b>
+DVN%%<b class="shake2>I CAN SEE YOU, STEVE! COME OUT!!!</b>
+TXT%%Steve opens his eyes, half stunned, half amazed over this outcome he was not expecting from this wonderfully clever, and well thought out sock plan.
+TXT%%Inbetween the curtains, a face which can only be described as disappointed-dad-like. Though this is no dad... This is fucking Devin.
