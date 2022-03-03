@@ -55,10 +55,12 @@
 
 @-webkit-keyframes hb {
 	0% { -webkit-transform: scale(1); }
-	25% { -webkit-transform: scale(1.5); }
+	25% { -webkit-transform: scale(1); }
   30% { -webkit-transform: scale(1); }
-  35% { -webkit-transform: scale(1.5); }
-  40% { -webkit-transform: scale(1); }
+  35% { -webkit-transform: scale(1.05); }
+  40% {-webkit-transform: scale(1);}
+  45% { -webkit-transform: scale(1.05); }
+  50% {-webkit-transform: scale(1);}  
   100% { -webkit-transform: scale(1); }
 }
 
