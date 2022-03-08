@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Gradient Wallpaper</title>
+    </head>
+<body>
+    <div id="gradient" style="height: 100%; width: 100%; position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 0;">
+        <div id="nightSky" style="content: url('Assets/starrySky.png'); position: fixed; height: 100%; width: auto; margin-left: 0px; opacity: 0; z-index: 0; transform:scale(1.5);">
+        </div>
+        <div id="green" style="content: url('Assets/day.png'); position: fixed; bottom: 0; height: auto; width: 100%; margin-left: 0px; transform:scale(1.0); opacity: 0.0; z-index: 3;">
+        </div>
+        <div id="red" style="content: url('Assets/night.png'); position: fixed; bottom: 0; height: auto; width: 100%; margin-left: 0px; transform:scale(1.0); opacity: 0.0; z-index: 2;">
+        </div>
+        <div id="purple" style="content: url('Assets/midnight.png'); position: fixed; bottom: 0; height: auto; width: 100%; margin-left: 0px; transform:scale(1.0); opacity: 0.0; z-index: 1;">
+    </div>
+    
+        <!--<div style="position: absolute; height: 100%; width: 100%;">
+            <img src="/library/midnight.png" id="purple" style="position: fixed; margin-bottom: 0; margin-left: 0px; width: 100%;">
+            <img src="/library/day.png" id="green" style="position: fixed; margin-bottom: 0; margin-left: 0px; width: 100%;">
+            <img src="/library/night.png" id="red" style="position: fixed; margin-bottom: 0; margin-left: 0px; width: 100%;"> 
+        </div>-->
+    </div>
+    <script src="https://www.yr.no/sted/Norge/Vestland/Bergen/Bergen/ekstern_boks_stripe.js">
+    </script>
+    <noscript>
+        <a href="https://www.yr.no/sted/Norge/Vestland/Bergen/Bergen/">yr.no: Værvarsel for Bergen</a>
+    </noscript>
+    <script type="text/javascript">
+        var div = document.getElementById("gradient");
+        const timeConst = 240;
+        var timeIndex = 15000;
+        var currentMode = "debug";
+
+        //colorpalets
+        
+        var fullBlack = "#000000";
+        var fullWhite = "#ffffff";
+        var fullRed = "#ff0000";
+        var fullGreen = "#00ff00";
+        var fullBlue = "#0000ff";
+        var dark = "#120c22";
+        var darkPurple = "#10064c";
+        var purple = "#39165e";
+        var magenta = "#c87aee";
+        var blue = "#39addb";
+        var lightblue = "#91cae0";
+        var red = "#ea292c";
+
+        //colorVariables 
+
+        var topRStart = 0; //the start R value of the top extrema
+        var topGStart = 0; //the start R value of the top extrema
+        var topBStart = 0; //the start R value of the top extrema
+
+        var topREnd = 0; //the end R value of the top extrema
+        var topGEnd = 0; //the end R value of the top extrema
+        var topBEnd = 0; //the end R value of the top extrema
+
+        var bottomRStart = 0; //the start R value of the bottom extrema
+        var bottomGStart = 0; //the start R value of the bottom extrema
+        var bottomBStart = 0; //the start R value of the bottom extrema
+
+        var bottomREnd = 0; //the end R value of the bottom extrema
+        var bottomGEnd = 0; //the end R value of the bottom extrema
+        var bottomBEnd = 0; //the end R value of the bottom extrema
+
+        //mountain variables
+
+        var redOpacity = 0;
+        var greenOpacity = 0;
+        var purpleOpacity = 0;
+
+        //rapidly changing variables
+
+        var currentTopColor = "#ffffff";
+        var currentBottomColor = "#000000";
+        var globalTick = 0;
+        var localTick = 0;
+
+        //nightSky
+
+        var nightSkyOpacity = 0;
+        var starXpos = 0;
+
+        //relative time stuff
+
+        function relativeTime() {
+            //time variables
+
+            var time = new Date();
+            var s = time.getSeconds();
+            var m = time.getMinutes();
+            var h = time.getHours();
+
+            globalTick = h*timeConst + m*4 + Math.round(s/15);
+        }
+
+        //mountains stuff
+
+        function mountainTime() {
+
+            if (globalTick < timeConst*4){
+                greenOpacity = 0;
+                redOpacity = 0;
+                purpleOpacity = 1;
+                nightSkyOpacity = 0.7;
+                document.getElementById("nightSky").style.marginLeft = starXpos.toString(10) + "px";
+                starXpos -= 1;
+            }
+            else if (globalTick >= timeConst*4 && globalTick < timeConst*7){
+                greenOpacity = 0 + (((globalTick - timeConst*4)/((timeConst*7) - (timeConst*4))) * 1);
+                redOpacity = 0;
+                purpleOpacity = 1;
+                nightSkyOpacity = 0.7 - (((globalTick - timeConst*4)/((timeConst*7) - (timeConst*4))) * 0.7);
+                document.getElementById("nightSky").style.marginLeft = starXpos.toString(10) + "px";
+                starXpos -= 1;
+            }
+            else if (globalTick >= timeConst*7 && globalTick < timeConst*16){
+                greenOpacity = 1;
+                redOpacity = 0;
+                purpleOpacity = 0;
+                nightSkyOpacity = 0;
+                starXpos = 0;
+            }
+            else if (globalTick >= timeConst*16 && globalTick < timeConst*21){
+                greenOpacity = 1 - (((globalTick - timeConst*16)/((timeConst*21) - (timeConst*16))) * 1);
+                redOpacity = 0 + (((globalTick - timeConst*16)/((timeConst*21) - (timeConst*16))) * 1);
+                purpleOpacity = 1;
+                nightSkyOpacity = 0;
+            }
+            else if (globalTick >= timeConst*21 && globalTick < timeConst*24){
+                greenOpacity = 0;
+                redOpacity = 1 - (((globalTick - timeConst*21)/((timeConst*24) - (timeConst*21))) * 1);
+                purpleOpacity = 1;
+                nightSkyOpacity = 0 + (((globalTick - timeConst*21)/((timeConst*24) - (timeConst*21))) * 0.7);
+                document.getElementById("nightSky").style.marginLeft = starXpos.toString(10) + "px";
+                starXpos -= 1;
+            }
+            document.getElementById("green").style.opacity = greenOpacity.toString(10);
+            document.getElementById("red").style.opacity = redOpacity.toString(10);
+            document.getElementById("purple").style.opacity = purpleOpacity.toString(10);
+            document.getElementById("nightSky").style.opacity = nightSkyOpacity.toString(10);
+        }
+
+        //gradient stuff
+
+        function setGradients(topColor, bottomColor){
+            div.style.background = "linear-gradient(to bottom," + topColor + "," + bottomColor + ")";
+        }
+
+        function setColor(topStartColor, topEndColor, bottomStartColor, bottomEndColor) { //changes colorVariables
+                topRStart = parseInt(topStartColor.slice(1,3),16);
+                topGStart = parseInt(topStartColor.slice(3,5),16);
+                topBStart = parseInt(topStartColor.slice(5,7),16);
+
+                topREnd = parseInt(topEndColor.slice(1,3),16);
+                topGEnd = parseInt(topEndColor.slice(3,5),16);
+                topBEnd = parseInt(topEndColor.slice(5,7),16);
+
+                bottomRStart = parseInt(bottomStartColor.slice(1,3),16);
+                bottomGStart = parseInt(bottomStartColor.slice(3,5),16);
+                bottomBStart = parseInt(bottomStartColor.slice(5,7),16);
+                
+                bottomREnd = parseInt(bottomEndColor.slice(1,3),16);
+                bottomGEnd = parseInt(bottomEndColor.slice(3,5),16);
+                bottomBEnd = parseInt(bottomEndColor.slice(5,7),16);
+        }
+
+        function convertToBase16(input) {
+            if (input < 16){
+                return "0" + input.toString(16);
+            }
+            else return input.toString(16);
+        }
+
+        function convertRGBToHex(r, g, b) {
+            return "#" + convertToBase16(r) + convertToBase16(g) + convertToBase16(b);
+        }
+
+        function gradualColorChange(duration, startTime){
+            currentTopColor = convertRGBToHex(topRStart + (Math.round((globalTick-startTime*timeConst)*(topREnd-topRStart)/(timeConst*duration))), 
+                                topGStart + (Math.round((globalTick-startTime*timeConst)*(topGEnd-topGStart)/(timeConst*duration))), 
+                                topBStart +(Math.round((globalTick-startTime*timeConst)*(topBEnd-topBStart)/(timeConst*duration))));
+            
+            currentBottomColor = convertRGBToHex(bottomRStart + (Math.round((globalTick-startTime*timeConst)*(bottomREnd-bottomRStart)/(timeConst*duration))), 
+                                bottomGStart + (Math.round((globalTick-startTime*timeConst)*(bottomGEnd-bottomGStart)/(timeConst*duration))), 
+                                bottomBStart +(Math.round((globalTick-startTime*timeConst)*(bottomBEnd-bottomBStart)/(timeConst*duration))));
+        }
+
+        function timeline() {
+            if (globalTick < timeConst*4) {
+                setColor(dark, darkPurple, darkPurple, dark);
+                gradualColorChange(4, 0);
+                setGradients(currentTopColor, currentBottomColor);
+
+            }
+            else if(globalTick >= timeConst*4 && globalTick < timeConst*6) {
+                setColor(darkPurple, purple, dark, magenta);
+                gradualColorChange(2, 4);
+                setGradients(currentTopColor, currentBottomColor);
+            }
+            else if(globalTick >= timeConst*6 && globalTick < timeConst*7) {
+                setColor(purple, blue, magenta, lightblue);
+                gradualColorChange(1, 6);
+                setGradients(currentTopColor, currentBottomColor);
+            }
+            else if(globalTick >= timeConst*7 && globalTick < timeConst*16) {
+                setColor(blue, blue, lightblue, lightblue);
+                gradualColorChange(9, 7);
+                setGradients(currentTopColor, currentBottomColor);
+            }
+            else if(globalTick >= timeConst*16 && globalTick < timeConst*21) {
+                setColor(blue, lightblue, lightblue, red);
+                gradualColorChange(5, 16);
+                setGradients(currentTopColor, currentBottomColor);
+            }
+            else if(globalTick >= timeConst*21 && globalTick < timeConst*24) {
+                setColor(lightblue, dark, red, darkPurple);
+                gradualColorChange(3, 21);
+                setGradients(currentTopColor, currentBottomColor);
+            }
+        }
+
+        function mode(mode) {
+            if (mode == "release"){
+                relativeTime();
+                timeIndex = 15000;
+            }
+            else if (mode == "debug") {
+                globalTick += 2;
+                timeIndex = 3;
+                if (globalTick > 1440*4){
+                    globalTick = 0;
+                }
+            }
+        }
+        
+        function loop() {
+            timeline();
+            mountainTime();
+            mode(currentMode);
+        }
+        //currentMode = "release";
+        relativeTime();
+        timeline();
+        mountainTime();
+        mode(currentMode);
+
+        var looper = setInterval(loop, timeIndex);
+
+    </script>
+</body>
+</html>
