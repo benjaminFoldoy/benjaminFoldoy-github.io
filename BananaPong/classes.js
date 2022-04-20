@@ -783,6 +783,12 @@ function removeAllPowerUps(){
       catch{}
     }
   }
+  for (const [i, powerUp] of allPowerUps.entries()){
+    try{
+      document.getElementById(powerUp.id).remove();
+    }
+    catch{}
+  }
   game.powerUpsOnBoard = [];
 }
 
