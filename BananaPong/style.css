@@ -45,7 +45,7 @@ main #game_container{
 #line{
   position: absolute;
   height: 100%;
-  margin: auto 50% auto 50%;
+  margin-left: 49.7%;
 }
 
 #logo{
@@ -95,7 +95,97 @@ footer{
   animation: animateButtonSelect 3s infinite;
 }
 
+@keyframes powerUpGood {
+  0% {
+    transform:scale(1) rotate(0deg);
+  }
+  25% {
+    transform:scale(1.2) rotate(-3deg);
+  }
+  50% {
+    transform:scale(1) rotate(0deg);
+  }
+  75% {
+    transform:scale(1.2) rotate(3deg);
+  }
+  100% {
+    transform:scale(1) rotate(0deg);
+  }
+}
 
+@keyframes powerUpBad {
+  0% {
+    transform:scale(1);
+  }
+  70% {
+    transform:scale(1);
+  }
+  80% {
+    transform:scale(1.1);
+  }
+  90% {
+    transform:scale(1.0);
+  }
+  100% {
+    transform:scale(1.1);
+  }
+}
+
+@keyframes bigger {
+  0% {
+    transform:scale(0.2);
+  }
+  90% {
+    transform:scale(0.5);
+  }
+  100% {
+    transform:scale(0.2);
+  }
+}
+
+@keyframes stretchy {
+  0% {
+    transform:scaleY(0.2) scaleX(0.5);
+  }
+  90% {
+    transform:scaleY(0.5) scaleX(0.5);
+  }
+  100% {
+    transform:scaleY(0.2) scaleX(0.5);
+  }
+}
+
+@keyframes shrink {
+  0% {
+    transform:scaleY(0.5) scaleX(0.5);
+  }
+  90% {
+    transform:scaleY(0.2) scaleX(0.5);
+  }
+  100% {
+    transform:scaleY(0.5) scaleX(0.5);
+  }
+}
+
+.slow, .pluss1{
+  animation: powerUpGood 2s infinite;
+}
+
+.fast, .gittering, .switcheroo, .invisible{
+  animation: powerUpBad 0.8s infinite;
+}
+
+.bigballs{
+  animation: bigger 2s infinite;
+}
+
+.stretch{
+  animation: stretchy 2s infinite;
+}
+
+.squish{
+  animation: shrink 2s infinite;
+}
 
 .menu-button {
   font-family: 'Signika Negative', sans-serif;

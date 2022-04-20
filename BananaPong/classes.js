@@ -7,14 +7,300 @@ let loser = null;
 let ST = 0;
 let ticks = 0;
 let ballDefaultVelocity = boardWidth*0.006;
-
+let rootDir = "https://benjaminfoldoy.github.io/BananaPong"
+let images = {};
+let time = 1;
+var game;
+var cooldown = 0;
+let allPowerUps = [];
+let theme = 1;
 var actx = new (AudioContext || webkitAudioContext)(),
 src = "/Assets/song_menu_banana.mp3",
 audioData, srcNode;  // global so we can access them from handlers
+loopDuration = 10; //milliseconds between each loop.
+
+function addPowerUp(){
+  let powerUp = Object.assign({}, allPowerUps[Math.floor(Math.random()*allPowerUps.length)]);
+  game.powerUpsOnBoard.push(powerUp);
+  spawnPowerUp(powerUp);
+}
+
+function spawnPowerUp(powerUp){
+  let x_pos = boardWidth*0.3 + Math.random()*boardWidth*0.4;
+  let y_pos = boardHeight*0.15 + Math.random()*boardHeight*0.70;
+  powerUp.x_pos = x_pos;
+  powerUp.y_pos = y_pos;
+  powerUp.img.style.position = "absolute"
+  powerUp.img.style.marginLeft = x_pos + "px";
+  powerUp.img.style.marginTop = y_pos + "px";
+  powerUp.img.style.width = powerUp.size + "px";
+  document.getElementById("board").appendChild(powerUp.img);
+}
+
+//POWER UP
+class PowerUp{
+  constructor(duration, isGood, id, iconPath, inputFunction, finishMethod){
+    this.isActive = false;
+    this.duration = duration;
+    this.ticksLeft = Math.floor((duration*(1000/loopDuration)));
+    this.method = inputFunction;
+    this.finished = finishMethod;
+    this.img = document.createElement("img");
+    this.img.src = rootDir + iconPath;
+    this.img.id = id; 
+    this.img.classList.add(id)
+    this.id = id;
+    this.x_pos;
+    this.y_pos;
+    this.size = boardWidth*0.05
+    this.isGood = isGood;
+    this.countDown = function(player){
+      if(this.ticksLeft-- <= 0){
+        return false;
+      }
+      return true;
+    }
+  }
+}
+
+function updateThemeNumber(n){
+  theme = n;
+}
+function reloadPowerUps(){
+  allPowerUps = [
+    //SLOW
+    new PowerUp(
+    duration = 15,
+    isGood = true,
+    id = "slow",
+    iconPath = "/Assets/Slow"+ theme +".png",
+    function(player){
+      let dir = 1
+      if(player.player_number == 1){
+        dir = -1;
+      }
+      if (game.ball.x_pos*dir > (boardWidth/2)*dir){
+        game.ball.velocity = ballDefaultVelocity*time
+        if(srcNode.playbackRate.value > 0.8){
+          srcNode.playbackRate.value -= 0.005;
+        }
+        if (time > 0.5){
+          time -= 0.05
+        }
+      }
+      else if(game.ball.x_pos*dir < (boardWidth/2)*dir){
+        game.ball.velocity = ballDefaultVelocity*time;
+        if(srcNode.playbackRate.value < 1){
+          srcNode.playbackRate.value += 0.005;
+        }
+        if (time < 1){
+          time += 0.05
+        }
+      }
+    },
+    function(player){
+      if(game.is_active){
+        game.ball.velocity = ballDefaultVelocity
+      }
+      else{
+        game.ball.velocity = 0;
+      }
+      time = 1;
+      srcNode.playbackRate.value = 1;
+    }
+  ),
+
+  //FAST
+  new PowerUp(
+    duration = 10,
+    isGood = false,
+    id = "fast",
+    iconPath = "/Assets/Fast"+ theme +".png",
+    function(player){
+      let dir = 1
+      if(player.player_number == 1){
+        dir = -1;
+      }
+      if (game.ball.x_pos*dir > (boardWidth/2)*dir){
+        game.ball.velocity = ballDefaultVelocity*time
+        if(srcNode.playbackRate.value < 1.2 ){
+          srcNode.playbackRate.value += 0.005;
+        }
+        if (time < 1.7){
+          time += 0.05
+        }
+      }
+      else if(game.ball.x_pos*dir < (boardWidth/2)*dir){
+        game.ball.velocity = ballDefaultVelocity*time;
+        if(srcNode.playbackRate.value > 1){
+          srcNode.playbackRate.value -= 0.005;
+        }
+        if (time > 1){
+          time -= 0.05
+        }
+      }
+    },
+    function(player){
+      if(game.is_active){
+        game.ball.velocity = ballDefaultVelocity
+      }
+      else{
+        game.ball.velocity = 0;
+      }
+      time = 1;
+      srcNode.playbackRate.value = 1;
+    }
+  ),
+
+  //1+ Life
+  new PowerUp(
+    duration = 0.1,
+    isGood = true,
+    id = "pluss1",
+    iconPath = "/Assets/OneUp"+ theme +".png",
+    function(player){
+      console.log("life matters")
+    },
+    function(player){
+      if(player.lives < 9){
+        player.lives++;
+      }
+    }
+  ),
+
+  //Stretch
+  new PowerUp(
+    duration = 15,
+    isGood = true,
+    id = "stretch",
+    iconPath = "/Assets/Left"+ theme +".png",
+    function(player){
+      player.height = boardHeight*0.3
+      if(player.y_pos < player.height/2){
+        player.y_pos = player.height/2
+      }
+      else if(player.y_pos > boardHeight - player.height/2){
+        player.y_pos = boardHeight - player.height/2
+      }
+    },
+    function(player){
+      player.height = boardHeight*0.2
+    }
+  ),
+
+  //BiggerBall
+  new PowerUp(
+    duration = 15,
+    isGood = true,
+    id = "bigballs",
+    iconPath = "/Assets/Ball"+ theme +".png",
+    function(player){
+      let dir = 1
+      if(player.player_number == 1){
+        dir = -1;
+      }
+      if (game.ball.x_pos*dir > (boardWidth/2)*dir){
+        if(game.ball.size < boardWidth*0.07){
+          game.ball.size += boardWidth*0.0005;
+        }
+      }
+      else if(game.ball.x_pos*dir < (boardWidth/2)*dir){
+        if(game.ball.size > boardWidth*0.05){
+          game.ball.size -= boardWidth*0.0005;
+        }
+      }
+      
+    },
+    function(player){
+      game.ball.size = boardWidth*0.05;
+    }
+  ),
+
+  //Gittering
+  new PowerUp(
+    duration = 10,
+    isGood = false,
+    id = "gittering",
+    iconPath = "/Assets/Left"+ theme +".png",
+    function(player){
+      player.y_pos += (1 - Math.random()*2)*boardHeight*0.015
+      if(player.y_pos + player.height/2 > boardHeight){
+        player.y_pos = boardHeight - player.height/2;
+      }
+      else if(player.y_pos - player.height/2 < 0){
+        player.y_pos = player.height/2;
+      }
+    },
+    function(player){
+    }
+  ),
+
+  //Squish
+  new PowerUp(
+    duration = 10,
+    isGood = false,
+    id = "squish",
+    iconPath = "/Assets/Left"+ theme +".png",
+    function(player){
+      player.height = boardHeight*0.1
+      player.width = boardHeight*0.06
+    },
+    function(player){
+      player.height = boardHeight*0.2
+      player.width = boardHeight*0.1
+    }
+  ),
+
+  //Switcheroo
+  new PowerUp(
+    duration = 15,
+    isGood = false,
+    id = "switcheroo",
+    iconPath = "/Assets/Switcheroo"+ theme +".png",
+    function(player){
+      if(player.player_number == 1){
+        player.upKey = "83";
+        player.downKey = "87"
+      }
+      else{
+        player.upKey = "40";
+        player.downKey = "38";
+      }
+    },
+    function(player){
+      if(player.player_number == 1){
+        player.upKey = "87";
+        player.downKey = "83";
+      }
+      else{
+        player.upKey = "38";
+        player.downKey = "40";
+      }
+    }
+    ),
+    
+    //Invisible
+    new PowerUp(
+    duration = 3,
+    isGood = false,
+    id = "invisible",
+    iconPath = "/Assets/Invisible"+ theme +".png",
+    function(player){
+      player.opacity = 0;
+    },
+    function(player){
+      player.opacity = 1;
+    }
+    )
+  ]
+}
+  
 
 function updateST(i){
   ST = i;
   themes[ST].setTheme();
+  loadAllAssets();
+  fetch(src, {mode: "cors"}).then(function(resp) {return resp.arrayBuffer()}).then(decode);
 }
 function updateSong(){
   if(game.is_active){
@@ -27,7 +313,6 @@ function updateSong(){
 
 // Load some audio (CORS need to be allowed or we won't be able to decode the data)
 fetch(src, {mode: "cors"}).then(function(resp) {return resp.arrayBuffer()}).then(decode);
-
 // Decode the audio file, then start the show
 function decode(buffer) {
   actx.decodeAudioData(buffer, playLoop);
@@ -35,46 +320,45 @@ function decode(buffer) {
 
 // Sets up a new source node as needed as stopping will render current invalid
 function playLoop(abuffer) {
+  try{
+    srcNode.stop()
+  }
+  catch{}
   srcNode = actx.createBufferSource();  // create audio source
   srcNode.buffer = abuffer;             // use decoded buffer
   srcNode.connect(actx.destination);    // create output
-  srcNode.loop = false;                  // takes care of perfect looping
-  srcNode.addEventListener('ended', () => {
-    fetch(src, {mode: "cors"}).then(function(resp) {return resp.arrayBuffer()}).then(decode);
-  })
+  srcNode.loop = true;                  // takes care of perfect looping
   srcNode.start();                      // play...
 }
 
 class Theme{
-  constructor(backgroundColor, sideColors, heart, linePath, ballPath, leftPath, RightPath, selectSFXPath, reflectionSFXPath, menuMusicPath, gameMusicPath){
+  constructor(backgroundColor, sideColors, heartPath, linePath, ballPath, leftPath, RightPath, selectSFXPath, reflectionSFXPath, menuMusicPath, gameMusicPath){
     this.backgroundColor = backgroundColor;
     this.sideColors = sideColors;
-    this.heart = heart;
-    this.linePath = linePath;
-    this.ballPath = ballPath;
-    this.leftPath = leftPath;
-    this.RightPath = RightPath;
-    this.selectSFXPath = selectSFXPath;
-    this.reflectionSFXPath = reflectionSFXPath;
-    this.menuMusicPath = menuMusicPath;
-    this.gameMusicPath = gameMusicPath;
+    this.heartPath = rootDir + "/Assets" + heartPath;
+    this.linePath = rootDir + "/Assets" + linePath;
+    this.ballPath = rootDir + "/Assets" + ballPath;
+    this.leftPath = rootDir + "/Assets" + leftPath;
+    this.RightPath = rootDir + "/Assets" + RightPath;
+    this.selectSFXPath = rootDir + "/Assets" + selectSFXPath;
+    this.reflectionSFXPath = rootDir + "/Assets" + reflectionSFXPath;
+    this.menuMusicPath = rootDir + "/Assets" + menuMusicPath;
+    this.gameMusicPath = rootDir + "/Assets" + gameMusicPath;
     this.setTheme = function(){
       document.getElementById("board").style.backgroundColor = themes[ST].backgroundColor;
       popSFX = new Audio(themes[ST].reflectionSFXPath);
-      for(let i = 0; i < 10; i++){
-        document.getElementById("H" + i).src = themes[ST].heart;
-      }
       ["multiplayer", "against-ai"].forEach(e => {
         document.getElementById(e).style.color = themes[ST].sideColors;
         document.getElementById(e).style.borderColor = themes[ST].sideColors;
         document.getElementById(e).style.backgroundColor = themes[ST].backgroundColor;
       })
+      src = this.menuMusicPath;
     }
   }  
 }
-var themes = [new Theme("#fe6b89", "#fc4067", "/Assets/Heart1.png", "/Assets/Line1.png", "/Assets/Ball1.png", "/Assets/Left1.png", "/Assets/Right1.png", "/Assets/pop.mp3", "/Assets/pop.mp3", "/Assets/song_menu_banana.mp3", "/Assets/song_game_banana.mp3"),
-              new Theme("#000000", "#00d700", "/Assets/Heart2.png", "/Assets/Line2.png", "/Assets/Ball2.png", "/Assets/Left2.png", "/Assets/Right2.png", "/Assets/pop.mp3", "/Assets/pop.mp3", "/Assets/song_menu_banana2.mp3", "/Assets/song_game_banana2.mp3")];
-
+var themes = [new Theme("#fe6b89", "#fc4067", "/Heart1.png", "/Line1.png", "/Ball1.png", "/Left1.png", "/Right1.png", "/pop.mp3", "/pop.mp3", "/song_menu_banana.mp3", "/song_game_banana.mp3"),
+              new Theme("#000000", "#00d700", "/Heart2.png", "/Line2.png", "/Ball2.png", "/Left2.png", "/Right2.png", "/pop.mp3", "/pop.mp3", "/song_menu_banana3.wav", "/song_game_banana3.wav")];
+loadAllAssets();
 class Ball{
   constructor(x_pos, y_pos, angle_rad){
     this.rotation = 0;
@@ -83,6 +367,8 @@ class Ball{
     this.size = 0;
     this.x_pos = x_pos;
     this.y_pos = y_pos;
+    this.x_posLog = [];
+    this.y_posLog = [];
     this.velocity = 0;
     this.angle_rad = angle_rad;
     this.is_rendered = false;
@@ -137,7 +423,13 @@ class Ball{
       let y_vel = -this.velocity*Math.sin(this.angle_rad)
       this.x_pos += x_vel;
       this.y_pos += y_vel;
-      this.rotation += this.rotation_speed;
+      this.x_posLog.push(x_pos);
+      this.y_posLog.push(y_pos);
+      if(this.x_posLog.length >= 101){
+        this.x_posLog.shift();
+        this.y_posLog.shift();
+      }
+      this.rotation += this.rotation_speed * time;
     }
 
     let angleDiff = function(startingAngle, endAngle){
@@ -177,6 +469,27 @@ class Ball{
           }
         }//du e kul.ting.sted.ihjertetmitt
 
+      }
+    }
+
+    this.checkPowerUpColision = function(){
+      for (const [index, powerUp] of game.powerUpsOnBoard.entries()) {
+        //console.log(this.y_pos, this.size/2, this.powerUp.y_pos, powerUp.size)
+        if (this.y_pos - this.size/2 <= powerUp.y_pos + powerUp.size/2
+        && this.y_pos + this.size/2 >= powerUp.y_pos - powerUp.size/2
+        &&this.x_pos - this.size/2 <= powerUp.x_pos + powerUp.size/2
+        && this.x_pos + this.size/2 >= powerUp.x_pos - powerUp.size/2){
+          if(this.angle_rad > Math.PI/2 && this.angle_rad < 3*Math.PI/2){
+            game.players[1].powerUps.push(Object.assign({}, powerUp))
+            document.getElementById(powerUp.id).remove();
+            game.powerUpsOnBoard.splice(index, 1)
+          }
+          else{
+            game.players[0].powerUps.push(Object.assign({}, powerUp));
+            document.getElementById(powerUp.id).remove();
+            game.powerUpsOnBoard.splice(index, 1);
+          }
+        }
       }
     }
 
@@ -221,26 +534,49 @@ class Ball{
       }
       if (this.x_pos <= this.size/2){
         this.resetBall();
+        removeAllPowerUps();
         this.rotation_speed = 0;
         game.is_active = false;
         game.players[0].lives -= 1;
+        game.players.forEach(player => {
+          player.powerUps.forEach(pu =>{
+            pu.ticksLeft = 0;
+            pu.finished(player);
+          })
+          player.powerUps = [];
+        })
       }
       else if (this.x_pos >= boardWidth - this.size/2){
         this.resetBall();
+        removeAllPowerUps()
         this.rotation_speed = 0;
         game.is_active = false;
         game.players[1].lives -= 1;
+        game.players.forEach(player => {
+          player.powerUps.forEach(pu =>{
+            pu.finished(game.player);
+            pu.ticksLeft = 0;
+          })
+          player.powerUps = [];
+        })
       }
     }
     this.render_ball = function(){
       if (this.is_rendered){
+        document.getElementById("ball").style.height = this.size + "px";
+        document.getElementById("ball").style.width = this.size + "px";
         document.getElementById("ball").style.transform = "rotate("+ this.rotation +  "deg)";
         document.getElementById("ball").style.marginLeft = this.x_pos - this.size/2 + "px";
         document.getElementById("ball").style.marginTop = this.y_pos - this.size/2 + "px";
       }
       else{
-        let img = `<img id='ball' style='width:` + this.size + `px; height:` + this.size + `px' src='` + this.image + `'>`;
-        document.getElementById("board").innerHTML += img;
+        var image = images["ball"];
+        image.id = "ball";
+        image.style.width = this.size + "px"
+        image.style.height = this.size + "px"
+        image.style.marginLeft = this.x_pos - this.size/2;
+        image.style.marginTop = this.y_pos - this.size/2;
+        document.getElementById("board").appendChild(image);
         this.is_rendered = true;
       }
     }
@@ -259,25 +595,39 @@ class Player{
     this.width = width
     this.height = height;
     this.x_pos = x_pos;
+    this.opacity = 1;
     this.y_pos = y_pos;
     this.is_rendered = false;
     this.upKey = upKey;
     this.downKey = downKey;
-    this.powerUps = new PowerUps()
+    this.powerUps = [];
 
     this.render_player = function(){
       if (this.is_rendered){
+        document.getElementById("p" + this.player_number).style.opacity = this.opacity;
+        document.getElementById("p" + this.player_number).style.height = this.height + "px";
+        document.getElementById("p" + this.player_number).style.width = this.width + "px";
         document.getElementById("p" + this.player_number).style.marginLeft = this.x_pos - this.width/2 + "px";
         document.getElementById("p" + this.player_number).style.marginTop = this.y_pos - this.height/2 + "px";
       }
       else{
         if(this.player_number == "1"){
-          var img = `<img id='p` + this.player_number + `' style='width:` + this.width + `px; height:` + this.height + `px; position:absolute;' src='` + themes[ST].leftPath + `'>`;
+          var image = images["p1"]
+          image.style.width = this.width + "px";
+          image.style.height = this.height + "px";
+          image.style.position = "absolute";
+          image.style.marginLeft = game.players[0].y_pos + "px";
+          image.id = "p" + this.player_number;
         }
         else{
-          var img = `<img id='p` + this.player_number + `' style='width:` + this.width + `px; height:` + this.height + `px; position:absolute' src='` + themes[ST].RightPath + `'>`;
+          var image = images["p2"]
+          image.style.width = this.width + "px";
+          image.style.height = this.height + "px";
+          image.style.position = "absolute";
+          image.style.marginLeft = game.players[1].y_pos + "px";
+          image.id = "p" + this.player_number;
         }
-        document.getElementById("board").innerHTML += img;
+        document.getElementById("board").appendChild(image)
         this.is_rendered = true;
       }
     }
@@ -303,6 +653,23 @@ class Player{
   }
 }
 
+function loadAllAssets(){
+  let keys = ["p1", "p2", "ball", "line"]
+  keys.forEach(key => {
+    images[key] = document.createElement("img");
+  })
+  images["p1"].src = themes[ST].leftPath;
+  images["p2"].src = themes[ST].RightPath;
+  images["ball"].src = themes[ST].ballPath;
+  images["line"].src = themes[ST].linePath;
+
+  for (let i = 0; i < 10; i++){
+    ["H", "L", "R"].forEach(key =>{
+      images[key + i] = document.createElement("img");
+      images[key + i].src = themes[ST].heartPath;
+    })
+  }
+}
 class Game{
   constructor(is_multiplayer, difficulty, n_of_lives){
     this.is_multiplayer = is_multiplayer;
@@ -314,23 +681,33 @@ class Game{
     this.is_active = false;
     this.gameloop;
     this.players = [];
+    this.powerUpsOnBoard = [];
     
     this.whipeAll = function(){
       document.getElementById("board").innerHTML = ""
     }
     this.initializeGame = function(){
       document.getElementById("board").innerHTML = 
-            `<div id="Lfall" style="background-color:` + themes[ST].sideColors + `"></div>
-            <img src="` + themes[ST].linePath + `" id="line" alt="">
+      `<div id="Lfall" style="background-color:` + themes[ST].sideColors + `"></div>
             <div id="Rfall" style="background-color:` + themes[ST].sideColors + `"></div>`
+      let line = images["line"];
+      line.id = "line"
+      document.getElementById("board").appendChild(line);
+
       //add hearts
-      let img = "";
-      for (let i = 0; i <= game.lives; i++){
-        img += '<img src="' + themes[ST].heart + '" id="L' + i + '" style="margin-left:' + (15 + i*3) + '%" class="life"></img>';
-        img += '<img src="' + themes[ST].heart + '" id="R' + i + '" style="margin-left:' + (98-(15 + i*3)) + '%" class="life"></img>'
+      for (let i = 0; i < 10; i++){
+        let heart1 = images["L" + i];
+        heart1.id = "L" + i;
+        heart1.style.marginLeft = (15 + i*3) + "%";
+        heart1.classList.add("life")
+        document.getElementById("board").appendChild(heart1)
+        let heart2 = images["R" + i];
+        heart2.id = "R" + i;
+        heart2.style.marginLeft = (98 - (15 + i*3)) + "%";
+        heart2.classList.add("life")
+        document.getElementById("board").appendChild(heart2)
       }
-      document.getElementById("board").innerHTML += img
-      
+
       //add players
       this.players = [
         new Player(
@@ -354,40 +731,15 @@ class Game{
             "38", 
             "40")];
       this.ball = new Ball(boardWidth*0.5, boardHeight*0.5, 0);
-      this.ball.size = boardWidth*0.06;
+      this.ball.size = boardWidth*0.05;
+      fetch(src, {mode: "cors"}).then(function(resp) {return resp.arrayBuffer()}).then(decode);
+      reloadPowerUps();
     }
   }
 }
 
-class PowerUps{
-  constructor(){
-    this.isSlowed = false;
-    this.slowedTicksLeft = 0;
-    this.updatePowerUps = function(player){
-      if(this.isSlowed){
-        updateSlow(player)
-      }
-    }
-    let updateSlow = function(player){
-      let dir = 1
-      if(player.player_number == 1){
-        dir = -1;
-      }
-      if (game.ball.x_pos*dir > (boardWidth/2)*dir){
-        game.ball.velocity = ballDefaultVelocity/2
-        if(srcNode.playbackRate.value > 0.8){
-          srcNode.playbackRate.value -= 0.005;
-        }
-      }
-      else if(game.ball.x_pos*dir < (boardWidth/2)*dir){
-        game.ball.velocity = ballDefaultVelocity;
-        if(srcNode.playbackRate.value < 1){
-          srcNode.playbackRate.value += 0.005;
-        }
-      }
-    }
-  }
-}
+game = new Game(false, 0, 9)
+
 
 function heartSelectHover(id){
   for (let i = 9; i >= 0; i--){
@@ -403,13 +755,35 @@ function heartSelect(id){
 }
 
 function updateHearts(player){
-  for (let i = game.lives; i >= player.lives + 1; i--){
+  for (let i = 0; i < 10; i++){
     let side = "R"
     if (player.player_number == 1){
       side = "L"
     }
-    document.getElementById(side + i).style.opacity = 0.5;
+    if(i <= player.lives){
+      document.getElementById(side + (i)).style.opacity = 1;
+    }
+    else{
+      document.getElementById(side + (i)).style.opacity = 0.5;
+    }
+    if( i > game.lives && i > player.lives){
+      document.getElementById(side + (i)).style.opacity = 0;
+    }
   }
+}
+
+function removeAllPowerUps(){
+  for (let n = 0; n <= 1; n++){
+    for (const [i, powerUp] of game.players[n].powerUps.entries()){
+      powerUp.ticksLeft = 0;
+      powerUp.finished(game.players[n])
+      try{
+        document.getElementById(powerUp.id).remove();
+      }
+      catch{}
+    }
+  }
+  game.powerUpsOnBoard = [];
 }
 
 function displayHearts(){
@@ -421,12 +795,12 @@ function displayHearts(){
   }
 }
 
-var game = new Game(false, 0, 10)
 function startGame(){
   inMenu = false;
   game.initializeGame()
-  game.players[0].powerUps.isSlowed = true;
-  game.gameloop = setInterval(gameLoop, 10);
+  game.gameloop = setInterval(gameLoop, loopDuration);
+  src = themes[ST].gameMusicPath
+  fetch(src, {mode: "cors"}).then(function(resp) {return resp.arrayBuffer()}).then(decode);
 }
 
 function stopGame(){
@@ -450,15 +824,21 @@ function main(){
   document.getElementById("board").innerHTML += "<button id='against-ai' class='menu-button'>vs AI</button>";
   let hearts="";
   for (let i = 0; i < 10; i++){
-    hearts += '<img src="' + themes[ST].heart + '" id="H' + i + '" style="margin-left:' + (30 + i*4) + '%" class="life-menu" onmouseover="heartSelectHover(' + i + ')" onmouseout="displayHearts()" onclick="(heartSelect(' + i + '))"></img>';
+    hearts += '<img src="' + themes[ST].heartPath + '" id="H' + i + '" style="margin-left:' + (30 + i*4) + '%" class="life-menu" onmouseover="heartSelectHover(' + i + ')" onmouseout="displayHearts()" onclick="(heartSelect(' + i + '))"></img>';
   }
   document.getElementById("board").innerHTML += hearts;
 
   let themeIcons = ""
   for (let i = 0; i <= themes.length; i++){
-    themeIcons += '<div onclick="updateST(' + i + ')" class="ThemeBox" id="T' + i + '" style="margin-left:' + (40 + i*8) + '%""></div>'
+    themeIcons += '<div onclick=" updateThemeNumber( ' + (i+1) + '); updateST(' + i + '); main()" class="ThemeBox" id="T' + i + '" style="margin-left:' + (40 + i*8) + '%""></div>'
   }
   document.getElementById("board").innerHTML += themeIcons;
+  ["multiplayer", "against-ai"].forEach(e => {
+    document.getElementById(e).style.color = themes[ST].sideColors;
+    document.getElementById(e).style.borderColor = themes[ST].sideColors;
+    document.getElementById(e).style.backgroundColor = themes[ST].backgroundColor;
+  })
+  displayHearts();
 }
 main()
 
@@ -491,10 +871,31 @@ function gameLoop(){
   });
   
   //physics
+  game.ball.checkPowerUpColision();
   game.players.forEach(player => {
     updateHearts(player);
     game_over(player);
-    player.powerUps.updatePowerUps(player);
+
+    //power ups...
+    for (const [index, element] of player.powerUps.entries()){
+      element.method(player)
+      if(!element.countDown()){
+        element.finished(player);
+        player.powerUps.splice(index, 1)
+      }
+    }
+
+    if(Math.random() > 0.9 
+    && cooldown > 8*(1000/loopDuration) 
+    && game.powerUpsOnBoard.length < 3
+    && game.is_active){
+      cooldown = 0;
+      addPowerUp();
+    }
+    else if(game.is_active){
+      cooldown++;
+    }
+
     game.ball.checkPlayerColision(
       player_number = player.player_number,
       top = player.y_pos-player.height/2,
@@ -502,6 +903,9 @@ function gameLoop(){
       bottom = player.y_pos+player.height/2,
       right = player.x_pos+player.width/2)
     });
+
+    
+
     game.ball.move();
     game.ball.checkBoundryColosion();
 
