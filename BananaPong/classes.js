@@ -486,7 +486,7 @@ class Ball{
           }
           else{
             game.players[0].powerUps.push(Object.assign({}, powerUp));
-            document.getElementById(powerUp.id).remove();
+            document.getElementById(powerUp.id)?.remove();
             game.powerUpsOnBoard.splice(index, 1);
           }
         }
@@ -554,7 +554,7 @@ class Ball{
         game.players[1].lives -= 1;
         game.players.forEach(player => {
           player.powerUps.forEach(pu =>{
-            pu.finished(game.player);
+            pu.finished(player);
             pu.ticksLeft = 0;
           })
           player.powerUps = [];
