@@ -481,7 +481,7 @@ class Ball{
         && this.x_pos + this.size/2 >= powerUp.x_pos - powerUp.size/2){
           if(this.angle_rad > Math.PI/2 && this.angle_rad < 3*Math.PI/2){
             game.players[1].powerUps.push(Object.assign({}, powerUp))
-            document.getElementById(powerUp.id).remove();
+            document.getElementById(powerUp.id)?.remove();
             game.powerUpsOnBoard.splice(index, 1)
           }
           else{
