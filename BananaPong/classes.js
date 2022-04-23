@@ -28,32 +28,31 @@ function addPowerUp(){
 function spawnPowerUp(powerUp){
   let x_pos = boardWidth*0.3 + Math.random()*boardWidth*0.4;
   let y_pos = boardHeight*0.15 + Math.random()*boardHeight*0.70;
-  powerUp.x_pos = x_pos;
-  powerUp.y_pos = y_pos;
-  powerUp.img.style.position = "absolute"
-  powerUp.img.style.marginLeft = x_pos + "px";
-  powerUp.img.style.marginTop = y_pos + "px";
-  powerUp.img.style.width = powerUp.size + "px";
-  document.getElementById("board").appendChild(powerUp.img);
+  images[powerUp.id].x_pos = x_pos;
+  images[powerUp.id].y_pos = y_pos;
+  images[powerUp.id].style.position = "absolute"
+  images[powerUp.id].style.marginLeft = x_pos + "px";
+  images[powerUp.id].style.marginTop = y_pos + "px";
+  images[powerUp.id].style.width = powerUp.size + "px";
+  document.getElementById("board").appendChild(images[powerUp.id]);
 }
 
 //POWER UP
 class PowerUp{
   constructor(duration, isGood, id, iconPath, inputFunction, finishMethod){
+    this.timeUntilActivation = 100;
     this.isActive = false;
     this.duration = duration;
     this.ticksLeft = Math.floor((duration*(1000/loopDuration)));
     this.method = inputFunction;
     this.finished = finishMethod;
-    this.img = document.createElement("img");
-    this.img.src = rootDir + iconPath;
-    this.img.id = id; 
-    this.img.classList.add(id)
+    this.img_src = rootDir + iconPath;
     this.id = id;
     this.x_pos;
     this.y_pos;
     this.size = boardWidth*0.05
     this.isGood = isGood;
+    
     this.countDown = function(player){
       if(this.ticksLeft-- <= 0){
         return false;
@@ -294,7 +293,7 @@ function reloadPowerUps(){
     )
   ]
 }
-  
+reloadPowerUps();
 
 function updateST(i){
   ST = i;
@@ -331,6 +330,53 @@ function playLoop(abuffer) {
   srcNode.start();                      // play...
 }
 
+class Opponent{
+  constructor(){
+    this.icon;
+    this.speed = 1;
+    this.reactionTime = 1;
+    this.distanceFromBall;
+    this.goal;
+    this.ticksToNextUpdate = 0;
+    this.updateFrequency = 20;
+
+    this.updateOpponent = function(){
+      if(this.updateFrequency < this.ticksToNextUpdate){
+        this.ticksToNextUpdate = 0;
+        //this.goal = game.ball.y_pos + Math.sin(game.ball.angle_rad)*boardHeight*0.1;
+        this.goal = game.ball.y_pos;
+
+      }
+      else{
+        this.ticksToNextUpdate++;
+      }
+      if(game.ball.x_pos < boardWidth*0.5){
+        this.updateFrequency = 100;
+      }
+      else{
+        this.updateFrequency = 15;
+      }
+      console.log(game.ball.angle_rad, " and ",Math.PI/2, " and ",(3*Math.PI)/2)
+
+      if(this.goal >= game.players[1].y_pos + this.speed*boardWidth*0.02
+        && game.ball.x_pos > boardWidth*0.4
+        && boardHeight - game.players[1].height/2 > game.players[1].y_pos
+        && !(game.ball.angle_rad > Math.PI/2 && game.ball.angle_rad < (3*Math.PI)/2)){
+        game.players[1].y_pos+= this.speed*boardWidth*0.006;
+      }
+      else if(this.goal <= game.players[1].y_pos - this.speed*boardWidth*0.02
+        && game.ball.x_pos > boardWidth*0.4
+        && game.players[1].height/2 < game.players[1].y_pos){
+        game.players[1].y_pos -= this.speed*boardWidth*0.006;
+      }
+    }
+  }
+}
+
+var allOpponents = [
+  new Opponent()
+]
+let cO = 0;
 class Theme{
   constructor(backgroundColor, sideColors, heartPath, linePath, ballPath, leftPath, RightPath, selectSFXPath, reflectionSFXPath, menuMusicPath, gameMusicPath){
     this.backgroundColor = backgroundColor;
@@ -669,16 +715,21 @@ function loadAllAssets(){
       images[key + i].src = themes[ST].heartPath;
     })
   }
+  console.log(allPowerUps)
+  for ([index, element] of allPowerUps.entries()){
+    images[element.id] = document.createElement("img");
+    images[element.id].src = element.img_src;
+  }
 }
 class Game{
-  constructor(is_multiplayer, difficulty, n_of_lives){
+  constructor(is_multiplayer, n_of_lives){
     this.is_multiplayer = is_multiplayer;
-    this.difficulty = difficulty;
     this.lives = n_of_lives;
     this.game_on = false
     this.ball;
     this.players;
     this.is_active = false;
+    this.vsAI = false;
     this.gameloop;
     this.players = [];
     this.powerUpsOnBoard = [];
@@ -738,7 +789,7 @@ class Game{
   }
 }
 
-game = new Game(false, 0, 9)
+game = new Game(false, 9)
 
 
 function heartSelectHover(id){
@@ -801,6 +852,14 @@ function displayHearts(){
   }
 }
 
+function setPVPMode(){
+  game.vsAI = false;
+}
+
+function setAiMode(){
+  game.vsAI = true;
+}
+
 function startGame(){
   inMenu = false;
   game.initializeGame()
@@ -826,8 +885,8 @@ function main(){
   if(loser != null){
     document.getElementById("board").innerHTML += '<h1 class="winner"> Player ' + determine_winner(loser) + ' won!</h1>'
   }
-  document.getElementById("board").innerHTML += "<button id='multiplayer' class='menu-button' onclick='startGame()'>1 vs 1</button>";
-  document.getElementById("board").innerHTML += "<button id='against-ai' class='menu-button'>vs AI</button>";
+  document.getElementById("board").innerHTML += "<button id='multiplayer' class='menu-button' onclick='setPVPMode(); startGame()'>1 vs 1</button>";
+  document.getElementById("board").innerHTML += "<button id='against-ai' class='menu-button' onclick='setAiMode(); startGame()'>vs AI</button>";
   let hearts="";
   for (let i = 0; i < 10; i++){
     hearts += '<img src="' + themes[ST].heartPath + '" id="H' + i + '" style="margin-left:' + (30 + i*4) + '%" class="life-menu" onmouseover="heartSelectHover(' + i + ')" onmouseout="displayHearts()" onclick="(heartSelect(' + i + '))"></img>';
@@ -872,7 +931,12 @@ function gameLoop(){
   //rendering
   game.ball.render_ball();
   game.players.forEach(player => {
-    player.updatePos();
+    if(player.player_number == 1 || (player.player_number == 2 && game.vsAI == false)){
+      player.updatePos();
+    }
+    else if(game.vsAI){
+      allOpponents[cO].updateOpponent();
+    }
     player.render_player();
   });
   
@@ -881,7 +945,6 @@ function gameLoop(){
   game.players.forEach(player => {
     updateHearts(player);
     game_over(player);
-
     //power ups...
     for (const [index, element] of player.powerUps.entries()){
       element.method(player)
@@ -891,7 +954,7 @@ function gameLoop(){
       }
     }
 
-    if(Math.random() > 0.9 
+    if(Math.random() > 0.9
     && cooldown > 8*(1000/loopDuration) 
     && game.powerUpsOnBoard.length < 3
     && game.is_active){
@@ -909,8 +972,6 @@ function gameLoop(){
       bottom = player.y_pos+player.height/2,
       right = player.x_pos+player.width/2)
     });
-
-    
 
     game.ball.move();
     game.ball.checkBoundryColosion();
