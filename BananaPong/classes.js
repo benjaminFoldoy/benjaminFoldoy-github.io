@@ -927,7 +927,7 @@ function main(){
 
   let themeIcons = ""
   for (let i = 0; i <= themes.length; i++){
-    themeIcons += '<div onclick=" updateThemeNumber( ' + (i+1) + '); reloadPowerUps();updateST(' + i + '); main()" class="ThemeBox" id="T' + i + '" style="margin-left:' + (40 + i*8) + '%""></div>'
+    themeIcons += '<div onclick=" updateThemeNumber( ' + (i+1) + '); reloadPowerUps();updateST(' + i + '); main()" class="ThemeBox" id="T' + i + '" style="margin-left:' + (42 + i*8) + '%""></div>'
   }
   document.getElementById("board").innerHTML += themeIcons;
   ["multiplayer", "against-ai"].forEach(e => {
