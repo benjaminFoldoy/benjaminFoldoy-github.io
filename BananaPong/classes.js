@@ -24,7 +24,6 @@ function addPowerUp(game){
   for (let i = 0; i < allPowerUps.length; i++){
     tempList.push(Object.assign({},allPowerUps[i]))
   }
-
   for ([index, pU] of game.powerUpsOnBoard.entries()){
     tempList.splice(tempList.indexOf(pU),1)
   } 
@@ -64,6 +63,7 @@ function spawnPowerUp(powerUp){
   images[powerUp.id].style.marginTop = y_pos + "px";
   images[powerUp.id].style.width = powerUp.size + "px";
   images[powerUp.id].style.display = "block"
+  images[powerUp.id].classList.add("powerUp")
   document.getElementById("board").appendChild(images[powerUp.id]);
 }
 
@@ -202,7 +202,7 @@ function reloadPowerUps(){
     duration = 15,
     isGood = true,
     id = "stretch",
-    iconPath = "/Assets/Left"+ theme +".png",
+    iconPath = "/Assets/Stretch"+ theme +".png",
     function(player){
       player.height = boardHeight*0.3
       if(player.y_pos < player.height/2){
@@ -222,7 +222,7 @@ function reloadPowerUps(){
     duration = 15,
     isGood = true,
     id = "bigballs",
-    iconPath = "/Assets/Ball"+ theme +".png",
+    iconPath = "/Assets/BigBalls"+ theme +".png",
     function(player){
       let dir = 1
       if(player.player_number == 1){
@@ -250,7 +250,7 @@ function reloadPowerUps(){
     duration = 10,
     isGood = false,
     id = "gittering",
-    iconPath = "/Assets/Left"+ theme +".png",
+    iconPath = "/Assets/BigBalls"+ theme +".png",
     function(player){
       player.y_pos += (1 - Math.random()*2)*boardHeight*0.015
       if(player.y_pos + player.height/2 > boardHeight){
@@ -269,7 +269,7 @@ function reloadPowerUps(){
     duration = 10,
     isGood = false,
     id = "squish",
-    iconPath = "/Assets/Left"+ theme +".png",
+    iconPath = "/Assets/Shrink"+ theme +".png",
     function(player){
       player.height = boardHeight*0.1
       player.width = boardHeight*0.06
@@ -927,7 +927,7 @@ function main(){
 
   let themeIcons = ""
   for (let i = 0; i <= themes.length; i++){
-    themeIcons += '<div onclick=" updateThemeNumber( ' + (i+1) + '); updateST(' + i + '); main()" class="ThemeBox" id="T' + i + '" style="margin-left:' + (40 + i*8) + '%""></div>'
+    themeIcons += '<div onclick=" updateThemeNumber( ' + (i+1) + '); reloadPowerUps();updateST(' + i + '); main()" class="ThemeBox" id="T' + i + '" style="margin-left:' + (40 + i*8) + '%""></div>'
   }
   document.getElementById("board").innerHTML += themeIcons;
   ["multiplayer", "against-ai"].forEach(e => {

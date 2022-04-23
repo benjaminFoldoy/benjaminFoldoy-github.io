@@ -179,28 +179,8 @@ footer{
   }
 }
 
-.slow, .pluss1{
+.powerUp{
   animation: powerUpGood 2s infinite;
-}
-
-.fast, .switcheroo, .invisible{
-  animation: powerUpBad 0.8s infinite;
-}
-
-.gittering{
-  animation:  gittering 1s infinite;
-}
-
-.bigballs{
-  animation: bigger 2s infinite;
-}
-
-.stretch{
-  animation: stretchy 2s infinite;
-}
-
-.squish{
-  animation: shrink 2s infinite;
 }
 
 .menu-button {
