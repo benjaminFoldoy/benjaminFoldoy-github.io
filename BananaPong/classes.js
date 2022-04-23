@@ -19,21 +19,51 @@ src = "/Assets/song_menu_banana.mp3",
 audioData, srcNode;  // global so we can access them from handlers
 loopDuration = 10; //milliseconds between each loop.
 
-function addPowerUp(){
-  let powerUp = Object.assign({}, allPowerUps[Math.floor(Math.random()*allPowerUps.length)]);
-  game.powerUpsOnBoard.push(powerUp);
+function addPowerUp(game){
+  let tempList = [];
+  for (let i = 0; i < allPowerUps.length; i++){
+    tempList.push(Object.assign({},allPowerUps[i]))
+  }
+
+  for ([index, pU] of game.powerUpsOnBoard.entries()){
+    tempList.splice(tempList.indexOf(pU),1)
+  } 
+  let powerUp = Object.assign({}, tempList[Math.floor(Math.random()*allPowerUps.length)]);
   spawnPowerUp(powerUp);
+  game.powerUpsOnBoard.push(powerUp);
 }
 
 function spawnPowerUp(powerUp){
   let x_pos = boardWidth*0.3 + Math.random()*boardWidth*0.4;
   let y_pos = boardHeight*0.15 + Math.random()*boardHeight*0.70;
+  while (true){
+    let number = 0;
+    for ([i, element] of game.powerUpsOnBoard.entries()){
+      if (Math.abs(element.x_pos - x_pos) > boardWidth*0.1
+      && Math.abs(element.y_pos - y_pos) > boardHeight*0.1
+      && number != 2){
+        number = 1;
+      }
+      else{
+        x_pos = boardWidth*0.3 + Math.random()*boardWidth*0.4;
+        y_pos = boardHeight*0.15 + Math.random()*boardHeight*0.70;
+        number = 2
+      }
+    }
+    if (number != 2){
+      break;
+    }
+  }
   images[powerUp.id].x_pos = x_pos;
   images[powerUp.id].y_pos = y_pos;
+  powerUp.x_pos = x_pos;
+  powerUp.y_pos = y_pos;
+  images[powerUp.id].id = powerUp.id;
   images[powerUp.id].style.position = "absolute"
   images[powerUp.id].style.marginLeft = x_pos + "px";
   images[powerUp.id].style.marginTop = y_pos + "px";
   images[powerUp.id].style.width = powerUp.size + "px";
+  images[powerUp.id].style.display = "block"
   document.getElementById("board").appendChild(images[powerUp.id]);
 }
 
@@ -356,8 +386,6 @@ class Opponent{
       else{
         this.updateFrequency = 15;
       }
-      console.log(game.ball.angle_rad, " and ",Math.PI/2, " and ",(3*Math.PI)/2)
-
       if(this.goal >= game.players[1].y_pos + this.speed*boardWidth*0.02
         && game.ball.x_pos > boardWidth*0.4
         && boardHeight - game.players[1].height/2 > game.players[1].y_pos
@@ -527,12 +555,12 @@ class Ball{
         && this.x_pos + this.size/2 >= powerUp.x_pos - powerUp.size/2){
           if(this.angle_rad > Math.PI/2 && this.angle_rad < 3*Math.PI/2){
             game.players[1].powerUps.push(Object.assign({}, powerUp))
-            document.getElementById(powerUp.id)?.remove();
+            document.getElementById(powerUp.id).style.display = "none";
             game.powerUpsOnBoard.splice(index, 1)
           }
           else{
             game.players[0].powerUps.push(Object.assign({}, powerUp));
-            document.getElementById(powerUp.id)?.remove();
+            document.getElementById(powerUp.id).style.display = "none";
             game.powerUpsOnBoard.splice(index, 1);
           }
         }
@@ -829,16 +857,20 @@ function removeAllPowerUps(){
       powerUp.ticksLeft = 0;
       powerUp.finished(game.players[n])
       try{
-        document.getElementById(powerUp.id).remove();
+        document.getElementById(powerUp.id).style.display = "none";
       }
-      catch{}
+      catch{
+        console.log("No - 839");
+      }
     }
   }
   for (const [i, powerUp] of allPowerUps.entries()){
     try{
-      document.getElementById(powerUp.id).remove();
+      document.getElementById(powerUp.id).style.display = "none";
     }
-    catch{}
+    catch{
+      console.log("No - 848");
+    }
   }
   game.powerUpsOnBoard = [];
 }
@@ -959,7 +991,7 @@ function gameLoop(){
     && game.powerUpsOnBoard.length < 3
     && game.is_active){
       cooldown = 0;
-      addPowerUp();
+      addPowerUp(game);
     }
     else if(game.is_active){
       cooldown++;
