@@ -250,7 +250,7 @@ function reloadPowerUps(){
     duration = 10,
     isGood = false,
     id = "gittering",
-    iconPath = "/Assets/BigBalls"+ theme +".png",
+    iconPath = "/Assets/Gittering"+ theme +".png",
     function(player){
       player.y_pos += (1 - Math.random()*2)*boardHeight*0.015
       if(player.y_pos + player.height/2 > boardHeight){
