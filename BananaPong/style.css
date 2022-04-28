@@ -241,8 +241,6 @@ footer{
 
 .winner{
   animation: animateButtonSelect 0.5s infinite;
-  color: white;
-  text-shadow: #fc4067 10px 10px;
   font-size: 5vw;
   margin-top: 5%;
   width: 100%;
@@ -265,4 +263,7 @@ footer{
 #T1{
   background-color: #000000;
   border: #00d700 solid 5px;
+}
+footer{
+  color: white;
 }

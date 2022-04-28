@@ -406,9 +406,10 @@ var allOpponents = [
 ]
 let cO = 0;
 class Theme{
-  constructor(backgroundColor, sideColors, heartPath, linePath, ballPath, leftPath, RightPath, selectSFXPath, reflectionSFXPath, menuMusicPath, gameMusicPath){
+  constructor(backgroundColor, sideColors, strokeColor, heartPath, linePath, ballPath, leftPath, RightPath, selectSFXPath, reflectionSFXPath, menuMusicPath, gameMusicPath){
     this.backgroundColor = backgroundColor;
     this.sideColors = sideColors;
+    this.strokeColor = strokeColor;
     this.heartPath = rootDir + "/Assets" + heartPath;
     this.linePath = rootDir + "/Assets" + linePath;
     this.ballPath = rootDir + "/Assets" + ballPath;
@@ -426,12 +427,16 @@ class Theme{
         document.getElementById(e).style.borderColor = themes[ST].sideColors;
         document.getElementById(e).style.backgroundColor = themes[ST].backgroundColor;
       })
+      try{
+        document.getElementById("winnerH1").style.color = themes[ST].sideColors;
+      }
+      catch{}
       src = this.menuMusicPath;
     }
   }  
 }
-var themes = [new Theme("#fe6b89", "#fc4067", "/Heart1.png", "/Line1.png", "/Ball1.png", "/Left1.png", "/Right1.png", "/pop.mp3", "/pop.mp3", "/song_menu_banana.mp3", "/song_game_banana.mp3"),
-              new Theme("#000000", "#00d700", "/Heart2.png", "/Line2.png", "/Ball2.png", "/Left2.png", "/Right2.png", "/pop.mp3", "/pop.mp3", "/song_menu_banana3.wav", "/song_game_banana3.wav")];
+var themes = [new Theme("#fe6b89", "#fc4067", "#ffffff","/Heart1.png", "/Line1.png", "/Ball1.png", "/Left1.png", "/Right1.png", "/pop.mp3", "/pop.mp3", "/song_menu_banana.mp3", "/song_game_banana.mp3"),
+              new Theme("#000000", "#00d700", "#00d700","/Heart2.png", "/Line2.png", "/Ball2.png", "/Left2.png", "/Right2.png", "/pop.mp3", "/pop.mp3", "/song_menu_banana3.wav", "/song_game_banana3.wav")];
 loadAllAssets();
 class Ball{
   constructor(x_pos, y_pos, angle_rad){
@@ -914,8 +919,10 @@ function determine_winner(loser){
 }
 function main(){
   game.whipeAll()
+  stroke = Math.floor(boardWidth*0.003)
+  h1Size = Math.floor(boardWidth*0.08)
   if(loser != null){
-    document.getElementById("board").innerHTML += '<h1 class="winner"> Player ' + determine_winner(loser) + ' won!</h1>'
+    document.getElementById("board").innerHTML += '<h1 id="winnerH1" class="winner" style="font-size:'+ h1Size +'px; color:'+ themes[ST].backgroundColor + ';  -webkit-text-stroke-width:'+ stroke +'px; -webkit-text-stroke-color:' + themes[ST].strokeColor + '"> Player ' + determine_winner(loser) + ' won!</h1>'
   }
   document.getElementById("board").innerHTML += "<button id='multiplayer' class='menu-button' onclick='setPVPMode(); startGame()'>1 vs 1</button>";
   document.getElementById("board").innerHTML += "<button id='against-ai' class='menu-button' onclick='setAiMode(); startGame()'>vs AI</button>";
